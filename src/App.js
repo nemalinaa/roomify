@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+// import {BrowserRouter as Router, Route} from "react-router-dom";
+import { Route, Router } from 'react-router-dom';
+import './App.css'
+// import CreatePost from './pages/CreatePost';
+// import MainPage from './pages/MainPage';
+import MainPage from './pages/MainPage';
+import Loft from './pages/Loft';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+   <div>
+     <div className="navbar">
+      <div className="links"> 
+      <a href="/">Main Page</a>
+      {/* <a href="/createpost">Create Post</a> */}
+      </div>
+      </div>
+   <Router>
+   <Route path="/" exact render={(props) => <MainPage />} />
+   {/* <Route path="/createpost" render={(props)=> <CreatePost />} /> */}
+   <Route path="/loft/:loftId" render={(props)=> <Loft />}/>
+     </Router>
     </div>
-  );
-}
-
+  )}
 export default App;
