@@ -5,6 +5,7 @@ function App() {
   return (
     <div className="App">
       <h2>Roomify</h2>
+      <span>help</span>
     </div>
   );
 }
