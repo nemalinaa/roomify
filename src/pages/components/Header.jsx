@@ -4,6 +4,7 @@ import danceLogo from "../../images/danceLogo.svg";
 import banketLogo from "../../images/banketLogo.svg";
 import photoLogo from "../../images/photoLogo.svg";
 import search from "../../images/search.svg";
+import styled from "styled-components";
 import '@fontsource/onest';
 
 
