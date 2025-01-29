@@ -1,35 +1,10 @@
 import logo from "../../images/logo.svg";
 import styled from "styled-components";
+import './styles/Footer.css';
 
-const background = styled.div`
-    width: 1440px;
-    height: 408px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    backgroundColor: #801525;
-    margin-top: 40px;
-`
-
-// const background = {
-//     width: '1440px',
-//     height: '408px',
-//     display: 'flex',
-//     flexDirection: 'column',
-//     gap: '5px',
-//     backgroundColor: '#801525',
-//     marginTop: '40px',
-// }
-
-const elements = {
-    display: 'flex',
-    justifyСontent: 'space-between',
-    alignItems: 'flex-end',
-}
 
 const logoStyle = {
-    width: '102px',
-    height: '88px',
+
 }
 
 const list = {
@@ -50,8 +25,9 @@ const Year = {
 
 const Footer = () => {
     return (
-        <background>
-            <div style={elements}>
+
+        <div className="background">
+            <div className="elements">
                 <img style={logoStyle} src={logo} />
                 <div style={list}>
                     {/* Здесь должны быть роуты */}
@@ -63,7 +39,7 @@ const Footer = () => {
                 </div>
             </div>
             <div style={Year}>2025</div>
-        </background>
+        </div>
     )
 }
 

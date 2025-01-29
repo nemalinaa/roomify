@@ -1,0 +1,21 @@
+.background {
+    width: 1440px;
+    height: 408px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: #801525;
+    margin-top: 40px;
+}
+
+.elements {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.logo_style{
+    width: 102px;
+    height: 88px;
+}
+
