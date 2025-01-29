@@ -24,11 +24,6 @@
     align-items: flex-end;
 }
 
-.logo_style {
-    width: 102px;
-    height: 88px;
-}
-
 .list {
     display: flex;
     flex-direction: column;
