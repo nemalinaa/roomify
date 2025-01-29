@@ -1,16 +1,9 @@
-import { getLofts } from "../data/getLofts";
-import { useState } from "react";
+import MainText from './components/MainText.jsx'
 
-const MainPage = ()=>{
-    const [lofts, setLofts] = useState(getLofts());
-    console.log(lofts)
+const MainPage = () => {
     return (
         <div>
-            <h2>Roomify</h2>
-            {lofts.map((loft)=>(
-                <h2>{loft.name}</h2>
-            ))}
-            <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae, quidem libero impedit aspernatur pariatur consectetur fugit voluptatum cumque. Deserunt id cumque nesciunt facilis adipisci reprehenderit quaerat quos laborum distinctio reiciendis.</span>
+            <MainText />
         </div>
     )
 }

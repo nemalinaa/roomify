@@ -5,6 +5,7 @@
     background-color: #801525;
     display: flex;
     align-items: center;
+    position: static;
 }
 
 .container {
@@ -68,6 +69,10 @@
     width: 358px;
     height: 40px;
     padding: 15px;
+}
+
+.searchInput:focus {
+    outline: none;
 }
 
 .searchButton {

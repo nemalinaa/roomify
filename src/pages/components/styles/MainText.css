@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
+
+.mainTextContainer {
+    width: 1440px;
+    margin: auto;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.mainTextDescription {
+    width: 296px;
+    text-align: left;
+    text-wrap: balance;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.7;
+    padding: 20px 0;
+}
+
+.mainTextTitle {
+    font-weight: 500;
+    font-size: 75px;
+
+}
+
+.mainTextLine {
+    color: #801525;
+    padding-bottom: 5px;
+    border-bottom: 6px solid #801525;
+}
