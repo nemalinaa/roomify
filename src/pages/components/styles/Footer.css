@@ -1,21 +1,52 @@
-.background {
-    width: 1440px;
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
+
+.all {
     height: 408px;
+    background-color: #801525;
+}
+
+.background {
+    margin: auto;
+    width: 1440px;
     display: flex;
     flex-direction: column;
     gap: 5px;
-    background-color: #801525;
     margin-top: 40px;
+    padding-top: 100px;
+    font-family: "Onest";
+    font-size: 24px;
 }
 
 .elements {
     display: flex;
     justify-content: space-between;
+    margin: 30px 0;
     align-items: flex-end;
 }
 
-.logo_style{
+.logo_style {
     width: 102px;
     height: 88px;
 }
 
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+
+}
+
+.list a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}
+
+.year {
+    margin: auto;
+    text-align: center;
+    font-weight: 400;
+    margin-top: 15px;
+    color: white;
+}
