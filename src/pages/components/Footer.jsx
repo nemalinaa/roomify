@@ -1,14 +1,25 @@
 import logo from "../../images/logo.svg";
+import styled from "styled-components";
 
-const background = {
-    width: '1440px',
-    height: '408px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '5px',
-    backgroundColor: '#801525',
-    marginTop: '40px',
-}
+const background = styled.div`
+    width: 1440px;
+    height: 408px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    backgroundColor: #801525;
+    margin-top: 40px;
+`
+
+// const background = {
+//     width: '1440px',
+//     height: '408px',
+//     display: 'flex',
+//     flexDirection: 'column',
+//     gap: '5px',
+//     backgroundColor: '#801525',
+//     marginTop: '40px',
+// }
 
 const elements = {
     display: 'flex',
@@ -33,18 +44,18 @@ const Year = {
     alignText: 'center'
 }
 
-const AStyle = {
-    textDecotarions
-}
+// const AStyle = {
+
+// }
 
 const Footer = () => {
     return (
-        <div style={background}>
+        <background>
             <div style={elements}>
                 <img style={logoStyle} src={logo} />
                 <div style={list}>
                     {/* Здесь должны быть роуты */}
-                    <a style={AStyle} href="">Лофты</a>
+                    <a href="">Лофты</a>
                     <a href="">Фотостудии</a>
                     <a href="">Танцевальные залы</a>
                     <a href="">Банкетные залы</a>
@@ -52,7 +63,7 @@ const Footer = () => {
                 </div>
             </div>
             <div style={Year}>2025</div>
-        </div>
+        </background>
     )
 }
 
