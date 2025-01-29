@@ -3,6 +3,7 @@ import MainPage from "./pages/MainPage";
 // import logo from "./images/logo.svg";
 import Header from "./pages/components/Header";
 
+
 function App() {
   return (
     <div>
