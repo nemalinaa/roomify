@@ -1,13 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
 
-.allHeader{
-    height: 84px; 
-    background-color: #801525; 
+.allHeader {
+    height: 84px;
+    background-color: #801525;
     display: flex;
     align-items: center;
 }
+
 .container {
-    width: 1440px; 
+    width: 1440px;
     margin: auto;
     display: flex;
     justify-content: space-between;
@@ -15,7 +16,7 @@
     padding: 0 30px;
     align-items: center;
     font-family: "Onest";
-    font-size: 14px;
+    font-size: 16px;
 }
 
 
@@ -24,13 +25,15 @@
     margin-left: 50px;
     display: flex;
     /* margin-top: 10px; */
-    width: 450px;
-    justify-content: space-between;
+    /* width: 450px;
+    justify-content: space-between; */
+    gap: 50px;
 }
 
 .buttonContainer {
     display: block;
     color: #fff;
+    width: 500;
     /* font-family: "Onest"; */
 }
 
@@ -42,7 +45,7 @@
 }
 
 .buttonElementImg {
-        /* //     display: 'flex', 
+    /* //     display: 'flex', 
         //     alignItems: 'center', 
         //     justifyContent: 'center',
         //  */

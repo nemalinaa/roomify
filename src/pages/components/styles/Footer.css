@@ -14,7 +14,7 @@
     margin-top: 40px;
     padding-top: 100px;
     font-family: "Onest";
-    font-size: 24px;
+    font-size: 16px;
 }
 
 .elements {
@@ -43,10 +43,15 @@
     font-weight: 500;
 }
 
+.list span {
+    color: white;
+    font-weight: 500;
+}
+
 .year {
     margin: auto;
     text-align: center;
     font-weight: 400;
-    margin-top: 15px;
+    margin-top: 50px;
     color: white;
 }

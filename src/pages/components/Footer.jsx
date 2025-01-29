@@ -18,6 +18,10 @@ const Footer = () => {
             <div className="background">
                 <div className="elements">
                     <img className='logo_style' src={logo} />
+                    <div className="list">
+                        <span>+7 (924) 561 91 38</span>
+                        <span>roomify_help@mail.ru</span>
+                    </div>
                     <div className='list'>
                         {/* Здесь должны быть роуты */}
                         <a href="">Лофты</a>
