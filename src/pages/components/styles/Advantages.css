@@ -1,0 +1,49 @@
+.allAdvantages{
+    height: 110px;
+    display: flex;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.containerAdvantages {
+    width: 1440px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.gorizontalStrip{
+    width: 1440px;
+    height: 1px;
+    background-color: #A63805;
+    bottom: 120px;
+    position: absolute;
+    /* box-shadow: 
+    0 -10px 10px rgba(0, 0, 0, 0.),
+    0 -20px 20px rgba(0, 0, 0, 0.05),
+    0 -30px 30px rgba(0, 0, 0, 0.02),
+    
+    
+    0 10px 30px rgba(0, 0, 0, 0.1),
+    0 20px 60px rgba(0, 0, 0, 0.05),
+    0 30px 90px rgba(0, 0, 0, 0.02);
+
+    */
+}
+
+.elementsAdvantages{
+    width: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    z-index: 10;
+}
+
+.textAdvantage {
+    color: #A63805;
+    font-weight: 700;
+    font-size: 20px;
+}
