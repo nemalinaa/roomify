@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
+
+.allHeader{
+    height: 84px; 
+    background-color: #801525; 
+    display: flex;
+    align-items: center;
+}
+.container {
+    width: 1440px; 
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    /* justify-items: center; */
+    padding: 0 30px;
+    align-items: center;
+    font-family: "Onest";
+    font-size: 14px;
+}
+
+
+/* BUTTONS */
+.buttonsContainer {
+    margin-left: 50px;
+    display: flex;
+    /* margin-top: 10px; */
+    width: 450px;
+    justify-content: space-between;
+}
+
+.buttonContainer {
+    display: block;
+    color: #fff;
+    /* font-family: "Onest"; */
+}
+
+.buttonElementContainer {
+    /* display: flex;
+    justify-content: center; */
+    text-align: center;
+    width: 90px;
+}
+
+.buttonElementImg {
+        /* //     display: 'flex', 
+        //     alignItems: 'center', 
+        //     justifyContent: 'center',
+        //  */
+}
+
+
+/* SEARCH */
+.searchContainer {
+    display: flex;
+    border-radius: 41px;
+    width: 420px;
+    height: 45px;
+    background-color: #fff;
+    align-items: center;
+}
+
+.searchInput {
+    border: 0;
+    border-radius: 41px;
+    width: 358px;
+    height: 40px;
+    padding: 15px;
+}
+
+.searchButton {
+    border-radius: 22px;
+    width: 60px;
+    height: 41px;
+    border: 0;
+    background-color: #801525;
+}
