@@ -14,7 +14,7 @@ const Year = {
 
 const Footer = () => {
     return (
-        <div className="all">
+        <div className="all_footer">
             <div className="background">
                 <div className="elements">
                     <img className='logo_style' src={logo} />
