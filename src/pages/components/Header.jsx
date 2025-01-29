@@ -1,8 +1,4 @@
 import logo from "../../images/logo.svg";
-import loftsLogo from "../../images/loftsLogo.svg";
-import danceLogo from "../../images/danceLogo.svg";
-import banketLogo from "../../images/banketLogo.svg";
-import photoLogo from "../../images/photoLogo.svg";
 import search from "../../images/search.svg";
 import './styles/Header.css';
 
