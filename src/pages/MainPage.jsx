@@ -1,6 +1,7 @@
 import MainText from './components/MainText.jsx'
 import Popular from './components/Popular.jsx';
 import Anvantages from './components/Advantages.jsx';
+import MainFilters from './components/MainFilters.jsx';
 
 const MainPage = () => {
     return (
@@ -8,6 +9,7 @@ const MainPage = () => {
             <MainText />
             <Popular />
             <Anvantages />
+            <MainFilters />
         </div>
     )
 }

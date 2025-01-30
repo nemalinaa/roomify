@@ -1,0 +1,29 @@
+.MainFiltersAllContainer {
+    height: 568px;
+    margin-top: 80px;
+    background-color: #00554A;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.MainFiltersContainer {
+    width: 1440px;
+    margin: auto;
+}
+
+.MainFiltersAll {
+    width: 1440px;
+    height: 436px;
+    background-color: white;
+    border-radius: 37px;
+}
+
+.MainFiltersForm {
+    display: grid;
+    width: 88%;
+    height: 348px;
+    grid-template-columns: repeat(3, 372px);
+    grid-template-rows: repeat(2, 105px);
+}

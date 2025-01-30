@@ -1,7 +1,6 @@
-.allAdvantages{
-    height: 110px;
+.allAdvantages {
     display: flex;
-    margin-top: 40px;
+    margin-top: 80px;
     margin-bottom: 40px;
 }
 
@@ -9,14 +8,15 @@
     width: 1440px;
     margin: auto;
     display: flex;
-    align-items: center;
     justify-content: center;
     position: relative;
 }
 
-.gorizontalStrip{
-    width: 1440px;
-    height: 1px;
+.gorizontalStrip {
+    filter: blur(5px);
+    margin-bottom: 20px;
+    width: 100vw;
+    height: 0.1px;
     background-color: #A63805;
     bottom: 120px;
     position: absolute;
@@ -33,7 +33,7 @@
     */
 }
 
-.elementsAdvantages{
+.elementsAdvantages {
     width: 1000px;
     display: flex;
     align-items: center;
