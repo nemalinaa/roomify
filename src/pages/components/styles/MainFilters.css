@@ -18,12 +18,73 @@
     height: 436px;
     background-color: white;
     border-radius: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .MainFiltersForm {
-    display: grid;
     width: 88%;
     height: 348px;
-    grid-template-columns: repeat(3, 372px);
+    display: flexbox;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.MainFiltersFormElements {
+    display: grid;
+    grid-gap: 45px;
+    grid-template-columns: repeat(3, 390px);
     grid-template-rows: repeat(2, 105px);
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 45px;
+}
+
+.MainFiltersFormBtn {
+    color: white;
+    background-color: #00554A;
+    border-radius: 30px;
+    height: 62px;
+    font-size: 20px;
+    text-align: left;
+    padding-left: 20px;
+    font-weight: 700;
+    width: 390px;
+    display: flex;
+    align-items: center;
+    border: none;
+
+}
+
+.MainFiltersFormBtn img {
+    margin-left: 80px;
+}
+
+.MainFiltersElement {
+    display: flex;
+    flex-direction: column;
+    align-items: safe;
+    gap: 17px;
+}
+
+.MainFiltersElementName {
+    font-weight: 700;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+
+
+.MainFiltersSelect {
+    color: rgba(0, 0, 0, 0.35);
+    border: 2px solid rgba(0, 0, 0, 0.35);
+    border-radius: 30px;
+    height: 62px;
+    font-size: 20px;
+    padding: 0 10px;
+    content: normal;
+    font-weight: 700;
 }
