@@ -59,7 +59,7 @@
 
 }
 
-.MainFiltersFormBtn:hover{
+.MainFiltersFormBtn:hover {
     background-color: #801525;
 }
 
@@ -136,6 +136,12 @@ legend {
 }
 
 .FieldsetFilters input::placeholder {
+    color: rgba(0, 0, 0, 0.35);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.MainFiltersElement input::placeholder {
     color: rgba(0, 0, 0, 0.35);
     font-size: 20px;
     font-weight: 700;

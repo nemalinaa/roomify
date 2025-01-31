@@ -33,9 +33,9 @@ const MainFilters = () => {
                                 <fieldset>
                                     <legend className='MainFiltersElementName'>Стоимость <span>₽/час</span></legend>
                                     <div className="FieldsetFilters">
-                                        <input id="mincost" name="min" placeholder='От' />
+                                        <input id="mincost" name="min" type='number' placeholder='От' />
                                         <div className="FieldsetFiltersLine"></div>
-                                        <input id="maxcost" name="max" placeholder='До' />
+                                        <input id="maxcost" name="max" type='number' placeholder='До' />
                                     </div>
 
                                 </fieldset>
@@ -55,9 +55,9 @@ const MainFilters = () => {
                                 <fieldset>
                                     <legend className='MainFiltersElementName'>Площадь <span>м²</span></legend>
                                     <div className="FieldsetFilters">
-                                        <input id="minsquare" name="min" placeholder='От' />
+                                        <input id="minsquare" name="min" type='number' placeholder='От' />
                                         <div className="FieldsetFiltersLine"></div>
-                                        <input id="maxsquare" name="max" placeholder='До' />
+                                        <input id="maxsquare" name="max" type='number' placeholder='До' />
                                     </div>
 
                                 </fieldset>
@@ -65,13 +65,7 @@ const MainFilters = () => {
 
                             <div className="MainFiltersElement">
                                 <label className='MainFiltersElementName' htmlFor="type">Количество человек</label>
-                                <select name="people" id="people" className='MainFiltersSelect'>
-                                    <option value="2">2</option>
-                                    <option value="5">3-5</option>
-                                    <option value="10">6-10</option>
-                                    <option value="20">11-20</option>
-                                    <option value=">20">{'>20'}</option>
-                                </select>
+                                <input placeholder='2' name="people" id="people" type='number' className='MainFiltersSelect' />
                             </div>
                         </div>
                         <button className='MainFiltersFormBtn' type='submit'>Подобрать помещение <img src={arrowBtn} /></button>
