@@ -59,6 +59,10 @@
 
 }
 
+.MainFiltersFormBtn:hover{
+    background-color: #801525;
+}
+
 .MainFiltersFormBtn img {
     margin-left: 80px;
 }
@@ -87,4 +91,57 @@
     padding: 0 10px;
     content: normal;
     font-weight: 700;
+    content: "▼";
+}
+
+
+fieldset {
+    border: none;
+    margin-inline: 0;
+    padding-block: 0;
+    padding-inline: 0;
+}
+
+.MainFieldset {
+    bottom: 0px;
+}
+
+legend {
+    margin-bottom: 17px;
+}
+
+.FieldsetFilters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.FieldsetFiltersLine {
+    height: 3px;
+    width: 23px;
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 40px;
+}
+
+.FieldsetFilters input {
+    color: rgba(0, 0, 0, 0.35);
+    border: 2px solid rgba(0, 0, 0, 0.35);
+    border-radius: 30px;
+    height: 62px;
+    font-size: 20px;
+    padding: 0 10px;
+    content: normal;
+    font-weight: 700;
+    width: 150px;
+}
+
+.FieldsetFilters input::placeholder {
+    color: rgba(0, 0, 0, 0.35);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.MainFiltersElementName span {
+    margin-left: 8px;
+    color: rgba(0, 0, 0, 0.35);
 }

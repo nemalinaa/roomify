@@ -30,7 +30,15 @@ const MainFilters = () => {
                             </div>
                             {/*Возможно будет лучше сделать это чекбоксом, чтобы можно было выбрать много вариантов */}
                             <div className="MainFiltersElement">
-                                {/* цена */}
+                                <fieldset>
+                                    <legend className='MainFiltersElementName'>Стоимость <span>₽/час</span></legend>
+                                    <div className="FieldsetFilters">
+                                        <input id="mincost" name="min" placeholder='От' />
+                                        <div className="FieldsetFiltersLine"></div>
+                                        <input id="maxcost" name="max" placeholder='До' />
+                                    </div>
+
+                                </fieldset>
                             </div>
 
                             <div className="MainFiltersElement">
@@ -44,7 +52,15 @@ const MainFilters = () => {
                             </div>
 
                             <div className="MainFiltersElement">
-                                {/* площадь */}
+                                <fieldset>
+                                    <legend className='MainFiltersElementName'>Площадь <span>м²</span></legend>
+                                    <div className="FieldsetFilters">
+                                        <input id="minsquare" name="min" placeholder='От' />
+                                        <div className="FieldsetFiltersLine"></div>
+                                        <input id="maxsquare" name="max" placeholder='До' />
+                                    </div>
+
+                                </fieldset>
                             </div>
 
                             <div className="MainFiltersElement">
