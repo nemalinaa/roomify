@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router";
+import { Routes, Route } from "react-router-dom";
 
 import Lofts from './pages/Lofts';
 import Dance from "./pages/Dance";
@@ -10,6 +10,7 @@ const MainRoutes = () => {
     return (
         <div className="">
             <Routes>
+                <Route path="/" element={<MainPage />} />
                 <Route path="/lofts" element={<Lofts />} />
                 <Route path="/bankets" element={<Bankets />} />
                 <Route path="/dance" element={<Dance />} />

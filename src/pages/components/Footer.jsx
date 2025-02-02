@@ -1,33 +1,26 @@
+import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import styled from "styled-components";
 import './styles/Footer.css';
+import '../../routes';
 
-
-const Year = {
-    margin: 'auto',
-    alignText: 'center'
-}
-
-// const AStyle = {
-
-// }
 
 const Footer = () => {
     return (
         <div className="all_footer">
             <div className="background">
                 <div className="elements">
-                    <img className='logo_style' src={logo} />
+                    <Link to='/' className='link'><img className='logo_style' src={logo} /></Link>
                     <div className="list">
                         <span>+7 (924) 561 91 38</span>
                         <span>roomify_help@mail.ru</span>
                     </div>
                     <div className='list'>
                         {/* Здесь должны быть роуты */}
-                        <a href="">Лофты</a>
-                        <a href="">Фотостудии</a>
-                        <a href="">Танцевальные залы</a>
-                        <a href="">Банкетные залы</a>
+                        <Link to='/lofts' className='link'>Лофты</Link>
+                        <Link to='/photo' className='link'>Фотостудии</Link>
+                        <Link to='/dance' className='link'>Танцевальные залы</Link>
+                        <Link to='/bankets' className='link'>Банкетные залы</Link>
 
                     </div>
                 </div>

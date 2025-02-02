@@ -1,16 +1,19 @@
-import { Route, Router } from "react-router";
+import { BrowserRouter, Route, Router } from "react-router";
 import MainPage from "./pages/MainPage";
 // import logo from "./images/logo.svg";
 import Header from "./pages/components/Header";
 import Footer from "./pages/components/Footer";
+import MainRoutes from "./routes";
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      {/* <img src={logo} /> */}
-      <MainPage />
-      <Footer />
+      <BrowserRouter>
+        <Header />
+        {/* <img src={logo} /> */}
+        <MainPage />
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 }

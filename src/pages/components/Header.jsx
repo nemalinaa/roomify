@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import search from "../../images/search.svg";
 import './styles/Header.css';
@@ -10,7 +10,7 @@ const Header = () => {
         <div className="allHeader">
             <div className="container">
 
-                <img src={logo} />
+                <Link className="link" to='/'> <img src={logo} /></Link>
 
                 <div className="buttonsContainer">
                     <div className="buttonContainer">
@@ -18,7 +18,7 @@ const Header = () => {
                         {/* <div className="elementImg">
                                 <img src={loftsLogo} />
                             </div> */}
-                        <div className="elementText">Лофты</div>
+                        <Link to='/lofts' className="link elementText">Лофты</Link>
                         {/* </div> */}
                     </div>
                     <div className="buttonContainer">
@@ -26,7 +26,7 @@ const Header = () => {
                         {/* <div className="elementImg">
                                 <img src={banketLogo} />
                             </div> */}
-                        <div className="elementText">Банкетные залы</div>
+                        <Link to='bankets' className="link elementText">Банкетные залы</Link>
                         {/* </div> */}
                     </div>
                     <div className="buttonContainer">
@@ -34,7 +34,7 @@ const Header = () => {
                         {/* <div className="elementImg">
                                 <img src={danceLogo} />
                             </div> */}
-                        <div className="elementText">Танцевальные залы</div>
+                        <Link to='dance' className="link elementText">Танцевальные залы</Link>
                         {/* </div> */}
                     </div>
                     <div className="buttonContainer">
@@ -42,7 +42,7 @@ const Header = () => {
                         {/* <div className="elementImg">
                                 <img src={photoLogo} />
                             </div> */}
-                        <Link to='bankets' className="elementText">Фотостудии</Link>
+                        <Link to='/photo' className="link elementText">Фотостудии</Link>
                         {/* </div> */}
                     </div>
                 </div>
