@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Lofts from "./pages/Lofts";
+import Lofts from "./pages/Lofts.jsx";
 import Dance from "./pages/Dance";
 import Bankets from "./pages/Bankets";
 import Photo from "./pages/Photo";
