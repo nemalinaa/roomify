@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import logo from "../../images/logo.svg";
-import search from "../../images/search.svg";
+import logo from "../../images/Header/mainLogo.svg";
+import search from "../../images/Header/search.svg";
 import './styles/Header.css';
 import '../../routes';
 

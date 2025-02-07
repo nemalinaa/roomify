@@ -10,8 +10,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header />
-        {/* <img src={logo} /> */}
-        <MainPage />
+          <MainRoutes />
         <Footer />
       </BrowserRouter>
     </div>

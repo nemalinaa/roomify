@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "../../images/logo.svg";
-import styled from "styled-components";
+import logo from "../../images/Footer/mainLogo.svg";
 import './styles/Footer.css';
 import '../../routes';
 
