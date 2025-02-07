@@ -33,9 +33,10 @@ const MainFilters = () => {
                                 <fieldset>
                                     <legend className='MainFiltersElementName'>Стоимость <span>₽/час</span></legend>
                                     <div className="FieldsetFilters">
-                                        <input id="mincost" name="min" type='number' placeholder='От' />
+                                        <input id="mincost" name="min" onkeydown="return event.key !== '-';" min="0" type='number' placeholder='От' />
                                         <div className="FieldsetFiltersLine"></div>
-                                        <input id="maxcost" name="max" type='number' placeholder='До' />
+                                        <input id="maxcost" name="max" onkeydown="return event.key !== '-';" min="0" type='number' placeholder='До' />
+                                        {/* вместо мин 0 в значении до нужно поставить константу, где лежит переменная от */}
                                     </div>
 
                                 </fieldset>
@@ -55,9 +56,10 @@ const MainFilters = () => {
                                 <fieldset>
                                     <legend className='MainFiltersElementName'>Площадь <span>м²</span></legend>
                                     <div className="FieldsetFilters">
-                                        <input id="minsquare" name="min" type='number' placeholder='От' />
+                                        <input id="minsquare" name="min" type='number' onkeydown="return event.key !== '-';" min="0" placeholder='От' />
                                         <div className="FieldsetFiltersLine"></div>
-                                        <input id="maxsquare" name="max" type='number' placeholder='До' />
+                                        <input id="maxsquare" name="max" type='number' onkeydown="return event.key !== '-';" min="0" placeholder='До' />
+
                                     </div>
 
                                 </fieldset>
@@ -65,7 +67,7 @@ const MainFilters = () => {
 
                             <div className="MainFiltersElement">
                                 <label className='MainFiltersElementName' htmlFor="type">Количество человек</label>
-                                <input placeholder='2' name="people" id="people" type='number' className='MainFiltersSelect' />
+                                <input placeholder='2' name="people" id="people" type='number' onkeydown="return event.key !== '-';" min="0" className='MainFiltersSelect' />
                             </div>
                         </div>
                         <button className='MainFiltersFormBtn' type='submit'>Подобрать помещение <img src={arrowBtn} /></button>
