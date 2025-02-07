@@ -1,6 +1,11 @@
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+
 const Lofts =()=>{
     return(
-        <div className=""></div>
+        <div className="">
+            meow
+        </div>
     )
 }
 
