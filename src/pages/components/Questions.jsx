@@ -85,12 +85,12 @@ const Questions = ()=>{
                     <div className="questions">
                         {questions.map((question, item)=>(
                             <div key={question.id} className="block-question">
-                                <div className="question">
+                                <div onClick={()=>clickImage(question)} className="question">
                                     <div className="text-question">
                                         {question.question}
                                     </div>
                                     <div className="arrow">
-                                        <img onClick={()=>clickImage(question)} src={openQuestions.includes(question.id) ? arrowOpen : arrowClosed} />
+                                        <img src={openQuestions.includes(question.id) ? arrowOpen : arrowClosed} />
                                     </div>
                                 </div>
                                 <div
