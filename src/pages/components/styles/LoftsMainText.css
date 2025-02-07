@@ -1,0 +1,14 @@
+.loftsAll{
+    height: 100px;
+    margin-top: 60px;
+}
+
+.loftsContainer{
+    width: 1440px;
+    margin: auto;
+}
+
+.loftsMainText{
+    font-size: 80px;
+    font-weight: 700;
+}

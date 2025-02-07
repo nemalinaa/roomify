@@ -1,0 +1,129 @@
+.loftsSearchAll{
+    height: 105px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.loftsSearchContainer{
+    width: 1440px;
+    margin: auto;
+}
+
+.loftsSearchForm{
+    display: flex;
+    grid-gap: 45px;
+    align-items: end;
+    justify-content: center;
+}
+
+.loftsSearchFormElements{
+    display: flex;
+    grid-gap: 45px;
+    /* align-items: end; */
+}
+
+.loftsSearchFormElement{
+    display: flex;
+    flex-direction: column;
+    align-items: safe;
+    gap: 17px;
+}
+
+.loftsSearchFormElementName{
+    font-weight: 700;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+.loftsSearchFormElementName span{
+    margin-left: 8px;
+    color: rgba(0, 0, 0, 0.35);
+}
+
+.loftsSearchFormSelect{
+    color: rgba(0, 0, 0, 0.35);
+    width: 372px;
+    border: 2px solid rgba(0, 0, 0, 0.35);
+    border-radius: 30px;
+    height: 62px;
+    font-size: 20px;
+    padding: 0 10px;
+    content: normal;
+    font-weight: 700;
+    content: "▼";
+}
+
+fieldset {
+    border: none;
+    margin-inline: 0;
+    padding-block: 0;
+    padding-inline: 0;
+}
+
+.FieldsetFiltersLoftsSearch{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.FieldsetFiltersLineLoftsSearch{
+    height: 2px;
+    width: 30px;
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 40px;
+    margin: 0 15px;
+}
+
+.FieldsetFiltersLoftsSearch input{
+    width: 146px;
+    color: rgba(0, 0, 0, 0.35);
+    border: 2px solid rgba(0, 0, 0, 0.35);
+    border-radius: 30px;
+    height: 62px;
+    font-size: 20px;
+    padding: 0 10px;
+    content: normal;
+    font-weight: 700;
+}
+
+.FieldsetFiltersLoftsSearch input::placeholder {
+    color: rgba(0, 0, 0, 0.35);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+legend {
+    margin-bottom: 17px;
+}
+
+.loftsSearchOtherFiltersButton{
+    color: white;
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 30px;
+    height: 62px;
+    font-size: 20px;
+    text-align: center;
+    padding-left: 20px;
+    font-weight: 700;
+    width: 310px;
+    display: flex;
+    align-items: center;
+    border: none;
+}
+
+.loftsSearchButton{
+    color: white;
+    background-color: #00554A;
+    border-radius: 30px;
+    height: 62px;
+    font-size: 20px;
+    text-align: center;
+    padding-left: 20px;
+    font-weight: 700;
+    width: 310px;
+    display: flex;
+    align-items: center;
+    border: none;
+}

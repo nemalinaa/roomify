@@ -1,10 +1,11 @@
-import Footer from "./components/Footer";
-import Header from "./components/Header";
+import LoftsMainText from "./components/LoftsMainText";
+import LoftsSearch from "./components/LoftsSearch";
 
 const Lofts =()=>{
     return(
         <div className="">
-            meow
+            <LoftsMainText />
+            <LoftsSearch />
         </div>
     )
 }
