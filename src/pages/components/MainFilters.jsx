@@ -1,5 +1,5 @@
 import './styles/MainFilters.css';
-import arrowBtn from '../../images/ArrowButton.svg';
+import arrowBtn from '../../images/MainFilter/ArrowButton.svg';
 
 const MainFilters = () => {
     return (

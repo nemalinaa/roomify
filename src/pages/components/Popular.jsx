@@ -1,7 +1,7 @@
-import SlideShow1 from "../../images/SlideShow1.svg";
-import drinks from "../../images/drinks.svg";
-import birthday from "../../images/birthday.svg";
-import people from "../../images/people.svg";
+import SlideShow1 from "../../images/SlideShow/SlideShow1.svg";
+import drinks from "../../images/Popular/drinks.svg";
+import birthday from "../../images/Popular/birthday.svg";
+import people from "../../images/Popular/people.svg";
 
 import './styles/Popular.css';
 
