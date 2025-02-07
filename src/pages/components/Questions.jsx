@@ -4,7 +4,9 @@ import { useState } from "react";
 import './styles/Questions.css';
 
 const Questions = ()=>{
-const questions = [
+    const [openQuestions, setOpenQuestions] = useState([]);
+    //когда будем переносить в бд - arrow: нам не нужен
+    const questions = [
     {
         id: 0,
         question: "Как арендовать помещение?",
@@ -21,7 +23,7 @@ const questions = [
         id: 2,
         question: "Есть ли минимальный срок аренды?",
         answer: "Да, вы можете уточнить минимальный срок аренды для каждого помещения в его карточке или у менеджера.",
-        arrow: arrowClosed
+        // arrow: arrowClosed
     },
     {
         id: 3,
@@ -65,7 +67,14 @@ const questions = [
         answer: "Вы можете связаться с нами по почте roomify_help@mail.ru, позвонить по номеру +7 (924) 561 91 38 либо написать нам в WhatsApp.",
         arrow: arrowClosed
     },
-]
+    ]
+    function clickImage(question){
+        if (openQuestions.includes(question.id)) {
+            setOpenQuestions(openQuestions.filter((questionId) => questionId !== question.id));
+        } else {
+            setOpenQuestions([...openQuestions, question.id]);
+        }
+    }   
     return (
         <div className="all-questions">
             <div className="container-questions">
@@ -81,14 +90,18 @@ const questions = [
                                         {question.question}
                                     </div>
                                     <div className="arrow">
-                                        <img src={question.arrow} />
+                                        <img onClick={()=>clickImage(question)} src={openQuestions.includes(question.id) ? arrowOpen : arrowClosed} />
                                     </div>
                                 </div>
-                                <div className="answer">
-                                        {question.answer}
+                                <div
+                                    className={`answer ${
+                                        openQuestions.includes(question.id) ? "answer-visible" : "answer-hidden"
+                                    }`}
+                                >
+                                    {question.answer}
                                 </div>
-                                {question.id !== (questions.length-1) ?
-                                    <div className="line-question"></div> : null }
+                                {question.id !== (questions.length-1) &&
+                                <div className="line-question"></div> }
                             </div>    
                         ))}
                     </div>
