@@ -1,5 +1,5 @@
-import { BrowserRouter, Route, Router } from "react-router";
-import MainPage from "./pages/MainPage";
+import { BrowserRouter} from "react-router";
+
 // import logo from "./images/logo.svg";
 import Header from "./pages/components/Header";
 import Footer from "./pages/components/Footer";
@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header />
-          <MainRoutes />
+        <MainRoutes />
         <Footer />
       </BrowserRouter>
     </div>

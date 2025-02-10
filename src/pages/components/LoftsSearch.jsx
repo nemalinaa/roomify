@@ -1,6 +1,6 @@
 import './styles/LoftsSearch.css';
 
-const LoftsSearch = ()=>{
+const LoftsSearch = () => {
     return (
         <div className="loftsSearchAll">
             <div className="loftsSearchContainer">
@@ -27,7 +27,7 @@ const LoftsSearch = ()=>{
                             </fieldset>
                         </div>
                     </div>
-                    
+
                     <button className="loftsSearchOtherFiltersButton">Другие фильтры</button>
                     <button className="loftsSearchButton">Искать</button>
                 </form>
