@@ -70,3 +70,8 @@
     font-weight: 300;
     right: 20px;
 }
+
+.link-card {
+    text-decoration: none;
+    color: black;
+}

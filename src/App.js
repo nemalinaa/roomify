@@ -1,4 +1,4 @@
-import { BrowserRouter} from "react-router";
+import { BrowserRouter } from "react-router";
 
 // import logo from "./images/logo.svg";
 import Header from "./pages/components/Header";

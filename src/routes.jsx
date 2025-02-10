@@ -4,6 +4,7 @@ import Dance from "./pages/Dance";
 import Bankets from "./pages/Bankets";
 import Photo from "./pages/Photo";
 import MainPage from "./pages/MainPage"; // Главная страница
+import LoftCard from "./pages/LoftCard.jsx";
 
 const MainRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const MainRoutes = () => {
         <Route path="/bankets" element={<Bankets />} />
         <Route path="/dance" element={<Dance />} />
         <Route path="/photo" element={<Photo />} />
+        <Route path="/card" element={<LoftCard />} />
       </Routes>
     </div>
   );
