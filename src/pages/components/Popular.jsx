@@ -5,11 +5,11 @@ import people from "../../images/Popular/people.svg";
 
 import './styles/Popular.css';
 
-const Popular = ()=>{
+const Popular = () => {
     return (
         <div className="allPopular">
             <div className="container_slideShow">
-                <img className="image_slideShow" src={SlideShow1}/>
+                <img className="image_slideShow" alt="" src={SlideShow1} />
                 <div className="background-shadow">
                     <div className="all-text">
                         <div className="name-text">
@@ -18,11 +18,11 @@ const Popular = ()=>{
                         <div className="other-text">
                             <div className="elements_text">
                                 <div className="element">
-                                    <img src={birthday} />
+                                    <img alt="" src={birthday} />
                                     <div className="text">день рождения, девичник, мальчишник</div>
                                 </div>
                                 <div className="element">
-                                    <img src={people} />
+                                    <img alt="" src={people} />
                                     <div className="text">10-15 человек</div>
                                 </div>
                                 <div className="element">
@@ -31,7 +31,7 @@ const Popular = ()=>{
                                 </div>
                             </div>
                             <div className="right-text">
-                            от 1500p/ч.
+                                от 1500p/ч.
                                 {/* <div>от 1500p/ч.</div> */}
                             </div>
                         </div>

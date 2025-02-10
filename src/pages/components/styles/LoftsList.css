@@ -1,63 +1,70 @@
-.loftsListAll{
+.loftsListAll {
     height: 959px;
     margin-top: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 150px;
 }
 
-.loftsListContainer{
+.loftsListContainer {
     width: 1440px;
     margin: auto;
 }
 
-.loftsListElements{
+.loftsListElements {
     display: grid;
-    grid-gap: 30px;
-    grid-template-columns: repeat(3, 460px);
-    grid-template-rows: repeat(2, 418px);
+    grid-row-gap: 10px;
+    grid-template-columns: repeat(3, 450px);
+    grid-template-rows: repeat(2, 490px);
+    justify-content: space-between;
+    width: 100%;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 45px;
+
 }
 
-.loftsListElement{
+.loftsListElement {
     background-color: rgba(166, 56, 5, 0.07);
     border-radius: 30px;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
     /* margin-bottom: 30px; */
     /* position: relative; */
     /* flex-direction: column; */
     /* align-items: safe; */
 }
 
-.loftsListElementImage{
+.loftsListElementImage {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.loftsListElementText{
+.loftsListElementText {
     padding-left: 20px;
 }
 
-.loftsListElementName, .loftsListElementPrice{
+.loftsListElementName,
+.loftsListElementPrice {
     font-size: 20px;
     font-weight: 600;
     margin: 10px 0;
 }
 
-.loftsListElementLocation, .loftsListElementPeople{
+.loftsListElementLocation,
+.loftsListElementPeople {
     font-size: 15px;
     font-weight: 300;
 }
 
-.loftsListElementBottomText{
+.loftsListElementBottomText {
     display: flex;
     align-items: center;
     position: relative;
 }
 
-.loftsListElementRating{
+.loftsListElementRating {
     position: absolute;
     font-size: 15px;
     font-weight: 300;
