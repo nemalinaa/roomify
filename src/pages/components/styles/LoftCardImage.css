@@ -1,0 +1,17 @@
+.allCardImage{
+    height: 706px;
+    margin-top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loftCardContainerImage{
+    width: 1440px;
+    margin: auto;
+}
+
+.loftCardImage img{
+    height: 706px;
+    width: 1440px;
+}
