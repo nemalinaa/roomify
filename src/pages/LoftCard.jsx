@@ -1,9 +1,9 @@
 import LoftCardImage from "./components/LoftCardImage";
 
-const LoftCard = ()=>{
+const LoftCard = () => {
     return (
         <LoftCardImage />
-        
+
     )
 }
 
