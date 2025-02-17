@@ -9,7 +9,7 @@ const Lofts =()=>{
         <div className="">
             <LoftsMainText />
             <LoftsSearch />
-            <LoftsMap />
+            {/* <LoftsMap /> */}
             <LoftsList />
             <Questions />
         </div>
