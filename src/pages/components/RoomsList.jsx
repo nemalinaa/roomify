@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import GetRooms from "../../data/GetRooms.jsx";
 
 const RoomsList = ({ typeSpace }) => {
-    console.log(typeSpace)
 
     function CheckType(type) {
         switch (type) {
@@ -20,22 +19,32 @@ const RoomsList = ({ typeSpace }) => {
         }
 
     }
+    function CheckTitle(newType){
+        switch(newType){
+            case 'lofts':
+                return 'Лофт';
+            case 'bankets':
+                return 'Банкетный зал'; 
+            case 'dance':
+                return 'Танцевальный зал';
+            case 'photo':
+                return 'Фотостудия';   
+        }
+    }
 
+    const [newType, setNewType] = useState(CheckType(typeSpace));
+    const [title, setTitle] = useState(CheckTitle(newType))
 
-
-    const [newtype, setType] = useState(CheckType(typeSpace));
     const [data, setData] = useState(null);
     const [err, setErr] = useState(null);
 
-
-    console.log(newtype)
     return (
 
         <div className="loftsListAll">
             {/* <GetLoftsData onDataLoaded={(data) => setLoftsList(data)} /> */}
             {/* <GetMetroData onDataLoaded={(data) => setMetroList(data)} /> */}
             <div className="loftsListContainer">
-                <GetRooms type={newtype} />
+                <GetRooms type={newType} title={title}/>
             </div>
         </div>
     )

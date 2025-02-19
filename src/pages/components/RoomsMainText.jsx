@@ -1,10 +1,10 @@
 import './styles/LoftsMainText.css';
 
-const RoomsMainText = ({ title }) => {
+const RoomsMainText = ({ mainText }) => {
     return (
         <div className="loftsAll">
             <div className="loftsContainer">
-                <div className="loftsMainText">{title}</div>
+                <div className="loftsMainText">{mainText}</div>
             </div>
         </div>
     )

@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import { Link } from "react-router";
 import imageAmbra from "../images/Lofts/loftsImage/imageAmbra.svg";
 
-const GetRooms = ({type}) => {
+const GetRooms = ({type, title}) => {
     console.log(type)
     const [data, setData] = useState(null);
     const [err, setErr] = useState(null);
@@ -45,7 +45,7 @@ const GetRooms = ({type}) => {
                             <img src={imageAmbra} />
                         </div>
                         <div className="loftsListElementText">
-                            <div className="loftsListElementName">Лофт "{room.name}"</div>
+                            <div className="loftsListElementName">{title} "{room.name}"</div>
                             <div className="loftsListElementLocation">м. {room.metro}</div>
                             <div className="loftsListElementPeople">{room.square}м², {room.capacity} чел.</div>
                             <div className="loftsListElementBottomText">
