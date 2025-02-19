@@ -1,4 +1,5 @@
 import './styles/LoftsSearch.css';
+import GetFilters from '../../data/GetFilters';
 
 const LoftsSearch = () => {
     return (
@@ -6,7 +7,8 @@ const LoftsSearch = () => {
             <div className="loftsSearchContainer">
                 <form method="" action="" className="loftsSearchForm">
                     <div className="loftsSearchFormElements">
-                        <div className="loftsSearchFormElement">
+                        <GetFilters />
+                        {/* <div className="loftsSearchFormElement">
                             <label htmlFor="type" className="loftsSearchFormElementName">Станция метро</label>
                             <select name="metro" id="metro" className="loftsSearchFormSelect">
                                 <option value="allmetro">Все станции</option>
@@ -15,7 +17,7 @@ const LoftsSearch = () => {
                                 <option value="ulitsa1905">Улица 1905</option>
                                 <option value="pushk">Пушкинская</option>
                             </select>
-                        </div>
+                        </div> */}
                         <div className="loftsSearchFormElement">
                             <fieldset>
                                 <legend className='loftsSearchFormElementName'>Стоимость <span>₽/час</span></legend>

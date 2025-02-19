@@ -1,7 +1,12 @@
 import './styles/MainFilters.css';
 import arrowBtn from '../../images/MainFilter/ArrowButton.svg';
 
+import GetFilters from '../../data/GetFilters';
+
+
+
 const MainFilters = () => {
+
     return (
         <div className="MainFiltersAllContainer">
             <div className="MainFiltersContainer">
@@ -18,16 +23,7 @@ const MainFilters = () => {
                                 </select>
                             </div>
 
-                            <div className="MainFiltersElement">
-                                <label className='MainFiltersElementName' htmlFor="type">Станция метро</label>
-                                <select name="metro" id="metro" className='MainFiltersSelect'>
-                                    <option value="allmetro">Все станции</option>
-                                    <option value="lublino">Люблино</option>
-                                    <option value="fili">Фили</option>
-                                    <option value="ulitsa1905">Улица 1905</option>
-                                    <option value="pushk">Пушкинская</option>
-                                </select>
-                            </div>
+                            <GetFilters />
                             {/*Возможно будет лучше сделать это чекбоксом, чтобы можно было выбрать много вариантов */}
                             <div className="MainFiltersElement">
                                 <fieldset>

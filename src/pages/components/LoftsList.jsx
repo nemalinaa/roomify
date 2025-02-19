@@ -1,15 +1,24 @@
 import { Link } from "react-router";
 import imageAmbra from "../../images/Lofts/loftsImage/imageAmbra.svg";
 import './styles/LoftsList.css';
-import { useState } from "react";
-import { getLofts } from "../../data/getLofts";
+import { useState, useEffect } from "react";
+import { GetLoftsData } from "../../data/GetLoftsData.jsx";
+import { GetMetroData } from "../../data/GetMetroData.jsx";
 
 const LoftsList = () => {
-    
-    const [loftsList, setLoftsList] = useState(getLofts());
+
+    const [loftsList, setLoftsList] = useState([]);
+
+    const [data, setData] = useState(null);
+    const [err, setErr] = useState(null);
+
+
 
     return (
+
         <div className="loftsListAll">
+            {/* <GetLoftsData onDataLoaded={(data) => setLoftsList(data)} /> */}
+            {/* <GetMetroData onDataLoaded={(data) => setMetroList(data)} /> */}
             <div className="loftsListContainer">
                 <div className="loftsListElements">
                     {loftsList.map(loft => (
