@@ -7,17 +7,18 @@ const LoftsSearch = () => {
             <div className="loftsSearchContainer">
                 <form method="" action="" className="loftsSearchForm">
                     <div className="loftsSearchFormElements">
+
+
                         <GetFilters />
-                        {/* <div className="loftsSearchFormElement">
-                            <label htmlFor="type" className="loftsSearchFormElementName">Станция метро</label>
+                        {/* <label htmlFor="type" className="loftsSearchFormElementName">Станция метро</label>
                             <select name="metro" id="metro" className="loftsSearchFormSelect">
                                 <option value="allmetro">Все станции</option>
                                 <option value="lublino">Люблино</option>
                                 <option value="fili">Фили</option>
                                 <option value="ulitsa1905">Улица 1905</option>
                                 <option value="pushk">Пушкинская</option>
-                            </select>
-                        </div> */}
+                            </select> */}
+
                         <div className="loftsSearchFormElement">
                             <fieldset>
                                 <legend className='loftsSearchFormElementName'>Стоимость <span>₽/час</span></legend>

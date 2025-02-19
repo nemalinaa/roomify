@@ -28,8 +28,8 @@ const GetFilters = () => {
         return <div>Произошла ошибка: {err}</div>; // Отображаем ошибку, если она есть
     }
     return (
-        <div className="MainFiltersElement">
-            <label className='MainFiltersElementName' htmlFor="type">Станция метро</label>
+        <div className="MainFiltersElement loftsSearchFormElement">
+            <label className='MainFiltersElementName loftsSearchFormElementName' htmlFor="type">Станция метро</label>
             <select name="metro" id="metro" className='MainFiltersSelect'>
                 <option value="allmetro">Все станции</option>
                 {metroList.map(metro => (
