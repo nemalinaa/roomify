@@ -2,6 +2,7 @@ import './styles/MainFilters.css';
 import arrowBtn from '../../images/MainFilter/ArrowButton.svg';
 
 import GetFilters from '../../data/GetFilters';
+import GetOptions from '../../data/GetOptions';
 
 
 
@@ -38,7 +39,8 @@ const MainFilters = () => {
                                 </fieldset>
                             </div>
 
-                            <div className="MainFiltersElement">
+                            <GetOptions />
+                            {/* <div className="MainFiltersElement">
                                 <label className='MainFiltersElementName' htmlFor="type">Опции площадки</label>
                                 <select name="options" id="options" className='MainFiltersSelect'>
                                     <option value="nooptions">Без опций</option>
@@ -46,7 +48,7 @@ const MainFilters = () => {
                                     <option value="pylon">Есть пилон</option>
                                     <option value="sing">Караоке</option>
                                 </select>
-                            </div>
+                            </div> */}
 
                             <div className="MainFiltersElement">
                                 <fieldset>
