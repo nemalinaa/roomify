@@ -27,7 +27,7 @@ db.connect((err) => {
 //Для получения инфы по помещениям
 
 app.get('/lofts', (req, res) => {
-    db.query('SELECT * FROM rooms WHERE type="1"', (err, results) => {
+    db.query('SELECT *,thismetro.name AS metro FROM rooms INNER JOIN metro as thismetro ON thismetro.idMetro = rooms.metro WHERE type="1" ', (err, results) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -36,7 +36,7 @@ app.get('/lofts', (req, res) => {
 });
 
 app.get('/bankets', (req, res) => {
-    db.query('SELECT * FROM rooms WHERE type="2"', (err, results) => {
+    db.query('SELECT *,thismetro.name AS metro FROM rooms INNER JOIN metro as thismetro ON thismetro.idMetro = rooms.metro WHERE type="2"', (err, results) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -45,7 +45,7 @@ app.get('/bankets', (req, res) => {
 });
 
 app.get('/dance', (req, res) => {
-    db.query('SELECT * FROM rooms WHERE type="3"', (err, results) => {
+    db.query('SELECT *,thismetro.name AS metro FROM rooms INNER JOIN metro as thismetro ON thismetro.idMetro = rooms.metro WHERE type="3"', (err, results) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -54,7 +54,7 @@ app.get('/dance', (req, res) => {
 });
 
 app.get('/photo', (req, res) => {
-    db.query('SELECT * FROM rooms WHERE type="4"', (err, results) => {
+    db.query('SELECT *,thismetro.name AS metro FROM rooms INNER JOIN metro as thismetro ON thismetro.idMetro = rooms.metro WHERE type="4"', (err, results) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
