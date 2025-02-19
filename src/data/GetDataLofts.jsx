@@ -2,7 +2,8 @@ import { React, useEffect, useState } from "react";
 import { Link } from "react-router";
 import imageAmbra from "../images/Lofts/loftsImage/imageAmbra.svg";
 
-const GetDataLofts = (type) => {
+const GetDataLofts = ({type}) => {
+    console.log(type)
     const [data, setData] = useState(null);
     const [err, setErr] = useState(null);
     const [roomsList, setRoomsList] = useState([]);
@@ -11,13 +12,13 @@ const GetDataLofts = (type) => {
         const fetchData = async () => {
 
             try {
-                const response = await fetch('http://localhost:3002/${type}');
+                const response = await fetch(`http://localhost:3002/${type}`);
                 if (!response.ok) {
                     throw new Error(`Ошибка HTTP! Статус: ${response.status}`);
                 }
                 const json = await response.json();
                 setData(json);
-                setLoftsList(json);
+                setRoomsList(json);
 
             } catch (error) {
                 setErr(error);

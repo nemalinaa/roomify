@@ -5,12 +5,13 @@ import LoftsSearch from "./components/LoftsSearch";
 import Questions from "./components/Questions";
 
 const Lofts =()=>{
+    const typeSpace = 1;
     return(
         <div className="">
             <LoftsMainText />
             <LoftsSearch />
             {/* <LoftsMap /> */}
-            <LoftsList />
+            <LoftsList typeSpace={typeSpace}/>
             <Questions />
         </div>
     )
