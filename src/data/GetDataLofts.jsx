@@ -47,7 +47,7 @@ const GetDataLofts = ({type}) => {
                         <div className="loftsListElementText">
                             <div className="loftsListElementName">Лофт "{room.name}"</div>
                             <div className="loftsListElementLocation">м. {room.metro}</div>
-                            <div className="loftsListElementPeople">{room.square}м, {room.capacity} чел.</div>
+                            <div className="loftsListElementPeople">{room.square}м², {room.capacity} чел.</div>
                             <div className="loftsListElementBottomText">
                                 <div className="loftsListElementPrice">от {room.priceWeekdays}р/час</div>
                                 <div className="loftsListElementRating">Нет оценок</div>
