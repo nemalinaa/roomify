@@ -15,7 +15,7 @@ const MainRoutes = () => {
         <Route path="/bankets" element={<Bankets />} />
         <Route path="/dance" element={<Dance />} />
         <Route path="/photo" element={<Photo />} />
-        <Route path="/card" element={<LoftCard />} />
+        <Route path="/card/:id" element={<LoftCard />} />
       </Routes>
     </div>
   );

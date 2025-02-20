@@ -4,8 +4,65 @@ import house from '../../images/Lofts/loftsImage/littlehouse.svg';
 import metrs from '../../images/Lofts/loftsImage/metrs.svg';
 import people from '../../images/Lofts/loftsImage/people.svg';
 import whatsapp from '../../images/Lofts/loftsImage/whatsapp.svg';
+import { useParams } from 'react-router';
+import { useEffect, useState } from 'react';
 
 const LoftCardImage = () => {
+    function CheckTitle(type) {
+        switch (type) {
+            case 1:
+                return 'Лофт';
+            case 2:
+                return 'Банкетный зал';
+            case 3:
+                return 'Танцевальный зал';
+            case 4:
+                return 'Фотостудия';
+        }
+    }
+
+
+    const { id } = useParams();
+
+
+    const [data, setData] = useState(null);
+    const [err, setErr] = useState(null);
+    const [room, setRoom] = useState({});
+    const [title, setTitle] = useState('');
+
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+
+            try {
+                const response = await fetch(`http://localhost:3002/rooms/${id}`);
+                if (!response.ok) {
+                    throw new Error(`Ошибка HTTP! Статус: ${response.status}`);
+                }
+                const json = await response.json();
+                setData(json);
+                setRoom(json[0]);
+                setTitle(CheckTitle(json[0]?.idTypes));
+            } catch (error) {
+                setErr(error);
+                console.error("Ошибка при загрузке данных", error);
+            }
+        };
+        fetchData();
+    }, []);
+
+
+    if (err) {
+        return <div>Произошла ошибка: {err}</div>
+    }
+
+
+
+    console.log(title);
+
+
+
     return (
         <div className="allCardImage">
             <div className="loftCardContainerImage">
@@ -15,27 +72,27 @@ const LoftCardImage = () => {
             </div>
             <div className="loftCardContainerDescription">
                 <div className="loftCardMainText">
-                    <h3 className="loftCardTitle">Название лофта</h3>
-                    <span className="loftCardTitleDescription">м. Бауманская<br />Электрозаводский переулок 2</span>
+                    <h3 className="loftCardTitle">{title} "{room.name}"</h3>
+                    <span className="loftCardTitleDescription">м. {room.metro}<br /> {room.address}</span>
                     <span className="loftCardTitleLine" />
                     <div className="loftCardTitleElements">
                         <div className="loftCardTitleElement">
                             <img src={house} alt="" />
-                            <span className="loftCardTitleElementText">танцевальный зал</span>
+                            <span className="loftCardTitleElementText">{room.title}</span>
                         </div>
                         <div className="loftCardTitleElement">
                             <img src={metrs} alt="" />
-                            <span className="loftCardTitleElementText">250м²</span>
+                            <span className="loftCardTitleElementText">{room.square}м²</span>
                         </div>
                         <div className="loftCardTitleElement">
                             <img src={people} alt="" />
-                            <span className="loftCardTitleElementText">25 чел.</span>
+                            <span className="loftCardTitleElementText">{room.capacity} чел.</span>
                         </div>
                     </div>
 
                 </div>
                 <div className="loftCardCostContainer">
-                    <h3 className="loftCardCost"><span className="loftCardCostDescription">от</span> 5000 р/ч</h3>
+                    <h3 className="loftCardCost"><span className="loftCardCostDescription">от</span> {room.priceWeekdays} р/ч</h3>
                     <div className="loftCardCostButtons">
                         <button className="loftCardCostButton call">Позвонить</button>
                         <button className="loftCardCostButton write"><img src={whatsapp} alt="" />Написать</button>
@@ -44,7 +101,7 @@ const LoftCardImage = () => {
 
             </div>
             <div className="loftCardContainerMainText">
-                <span className="loftCardDescriptionText">Описание лофта описание лофта описание лофта описание лофта описание лофта описание лофта описание лофта описание лофта описание лофта описание лофта описание лофта описание лофта описание лофта описание лофта описание лофта описание лофта описание лофта описание лофта описание лофта</span>
+                <span className="loftCardDescriptionText">{room.description}</span>
                 <div className="loftCardContainerConditions">
                     <h5 className="loftCardConditionsTitle">Условия аренды:</h5>
                     <ul className="loftCardConditionsList">

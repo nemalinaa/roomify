@@ -5,7 +5,7 @@ import RoomsMap from "../pages/components/RoomsMap.jsx";
 
 import Questions from "./components/Questions";
 
-const Lofts =()=>{
+const Lofts = () =>{
     const typeSpace = 1;
     const mainText = "Лофты"
     return(

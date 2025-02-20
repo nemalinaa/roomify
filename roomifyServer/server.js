@@ -94,13 +94,34 @@ app.get('/metro', (req, res) => {
 
 
 app.get('/reviews/:id', (req, res) => {
-    db.query('SELECT * FROM reviews WHERE rooms_id = ?', (err, results) => {
+    const roomId = req.params.id;
+    db.query('SELECT * FROM reviews WHERE rooms_id = ?', [roomId], (err, results) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
         res.json(results);
     });
 });
+
+
+app.get('/rooms/:id', (req, res) => {
+    const roomId = req.params.id;
+    const query = `SELECT *,rooms.name AS name, thismetro.name AS metro, thistype.name AS type
+    FROM rooms
+    INNER JOIN metro as thismetro ON thismetro.idMetro = rooms.metro
+    INNER JOIN types as thistype ON thistype.idTypes = rooms.type
+    WHERE rooms.id = ?`;
+    db.query(query, [roomId], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Database error', details: err.message });
+        }
+        res.json(results);
+    });
+});
+
+
+
 
 
 app.get('/lofts-with-options/:id', (req, res) => {

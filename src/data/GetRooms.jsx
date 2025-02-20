@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import { Link } from "react-router";
 import imageAmbra from "../images/Lofts/loftsImage/imageAmbra.svg";
 
-const GetRooms = ({type, title}) => {
+const GetRooms = ({ type, title }) => {
     console.log(type)
     const [data, setData] = useState(null);
     const [err, setErr] = useState(null);
@@ -39,7 +39,7 @@ const GetRooms = ({type, title}) => {
     return (
         <div className="loftsListElements">
             {roomsList.map(room => (
-                <Link className="link-card" to='/card'>
+                <Link className="link-card" to={`/card/${room.id}`}>
                     <div className="loftsListElement">
                         <div className="loftsListElementImage">
                             <img src={imageAmbra} />
