@@ -26,8 +26,10 @@ db.connect((err) => {
 
 //Для получения инфы по помещениям
 
+
+
 app.get('/lofts', (req, res) => {
-    db.query('SELECT *,thismetro.name AS metro FROM rooms INNER JOIN metro as thismetro ON thismetro.idMetro = rooms.metro WHERE type="1" ', (err, results) => {
+    db.query('SELECT *,thismetro.nameMetro AS metro FROM rooms LEFT JOIN metro as thismetro ON thismetro.idMetro = rooms.metro WHERE type="1"', (err, results) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -35,8 +37,9 @@ app.get('/lofts', (req, res) => {
     });
 });
 
+
 app.get('/bankets', (req, res) => {
-    db.query('SELECT *,thismetro.name AS metro FROM rooms INNER JOIN metro as thismetro ON thismetro.idMetro = rooms.metro WHERE type="2"', (err, results) => {
+    db.query('SELECT *,thismetro.nameMetro AS metro FROM rooms LEFT JOIN metro as thismetro ON thismetro.idMetro = rooms.metro WHERE type="2"', (err, results) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -45,7 +48,7 @@ app.get('/bankets', (req, res) => {
 });
 
 app.get('/dance', (req, res) => {
-    db.query('SELECT *,thismetro.name AS metro FROM rooms INNER JOIN metro as thismetro ON thismetro.idMetro = rooms.metro WHERE type="3"', (err, results) => {
+    db.query('SELECT *,thismetro.nameMetro AS metro FROM rooms LEFT JOIN metro as thismetro ON thismetro.idMetro = rooms.metro WHERE type="3"', (err, results) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -54,7 +57,7 @@ app.get('/dance', (req, res) => {
 });
 
 app.get('/photo', (req, res) => {
-    db.query('SELECT *,thismetro.name AS metro FROM rooms INNER JOIN metro as thismetro ON thismetro.idMetro = rooms.metro WHERE type="4"', (err, results) => {
+    db.query('SELECT *,thismetro.nameMetro AS metro FROM rooms LEFT JOIN metro as thismetro ON thismetro.idMetro = rooms.metro WHERE type="4"', (err, results) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -106,7 +109,7 @@ app.get('/reviews/:id', (req, res) => {
 
 app.get('/rooms/:id', (req, res) => {
     const roomId = req.params.id;
-    const query = `SELECT *,rooms.name AS name, thismetro.name AS metro, thistype.name AS type
+    const query = `SELECT *,rooms.name AS name, thismetro.nameMetro AS metro, thistype.name AS type
     FROM rooms
     INNER JOIN metro as thismetro ON thismetro.idMetro = rooms.metro
     INNER JOIN types as thistype ON thistype.idTypes = rooms.type
