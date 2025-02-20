@@ -102,6 +102,36 @@ app.get('/reviews/:id', (req, res) => {
     });
 });
 
+
+app.get('/lofts-with-options/:id', (req, res) => {
+    const query = `
+        SELECT 
+            rooms.id AS room_id,
+            rooms.name AS room_name,
+            options.name AS option_name
+        FROM 
+            rooms
+        LEFT JOIN 
+            rooms_options ON rooms.id = rooms_options.rooms_id
+        LEFT JOIN 
+            options ON rooms_options.options_id = options.idOptions
+        WHERE 
+            rooms.id = ?;
+
+    `;
+
+    const roomId = req.params.id;
+
+    db.query(query, [roomId], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Database error', details: err.message });
+        }
+        res.json(results);
+    });
+});
+
+
 app.listen(port, () => {
     console.log(`Сервер запущен на http://localhost:${port}`);
 });
