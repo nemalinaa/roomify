@@ -26,7 +26,7 @@ const Header = () => {
                         {/* <div className="elementImg">
                                 <img src={banketLogo} />
                             </div> */}
-                        <Link to='bankets' className="link elementText">Банкетные залы</Link>
+                        <Link to='/bankets' className="link elementText">Банкетные залы</Link>
                         {/* </div> */}
                     </div>
                     <div className="buttonContainer">
@@ -34,7 +34,7 @@ const Header = () => {
                         {/* <div className="elementImg">
                                 <img src={danceLogo} />
                             </div> */}
-                        <Link to='dance' className="link elementText">Танцевальные залы</Link>
+                        <Link to='/dance' className="link elementText">Танцевальные залы</Link>
                         {/* </div> */}
                     </div>
                     <div className="buttonContainer">
