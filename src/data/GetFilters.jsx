@@ -33,7 +33,7 @@ const GetFilters = () => {
             <select name="metro" id="metro" className='MainFiltersSelect'>
                 <option value="allmetro">Все станции</option>
                 {metroList.map(metro => (
-                    <option id={metro.id} value={metro.name} >{metro.name}</option>
+                    <option id={metro.id} value={metro.nameMetro} >{metro.nameMetro}</option>
                 ))
                 }
             </select>

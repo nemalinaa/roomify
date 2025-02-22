@@ -1,5 +1,5 @@
-.all-questons {
-    height: 1000px;
+.all-questions {
+    padding-top: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,17 +8,17 @@
 .container-questions {
     width: 1440px;
     margin: auto;
-   
+
 }
 
-.main-text-questions{
+.main-text-questions {
     font-size: 36px;
     font-weight: 600;
     margin-top: 40px;
     margin-bottom: 30px;
 }
 
-.background-questions{
+.background-questions {
     background-color: rgba(166, 56, 5, 0.07);
     border-radius: 42px;
     display: flex;
@@ -26,17 +26,17 @@
     /* display: flex; */
 }
 
-.questions{
+.questions {
     padding: 30px 0;
     width: 1440px;
     /* padding-bottom: 60px;  */
 }
 
-.block-question{
+.block-question {
     margin: 0 57px;
 }
 
-.question{
+.question {
     /* position: relative; */
     display: flex;
     justify-content: space-between;
@@ -44,34 +44,36 @@
     cursor: pointer;
 }
 
-.text-question{
+.text-question {
     font-size: 24px;
     font-weight: 500;
     margin: 30px 0;
 }
 
-.arrow{
+.arrow {
     /* position: absolute; */
     /* right: 1px; */
     /* align-self: ; */
 }
 
-.answer{
+.answer {
     /* display: none; */
     font-size: 24px;
     font-weight: 200;
     margin-bottom: 30px;
 }
-.answer-hidden{
+
+.answer-hidden {
     display: none;
 }
-.answer-visible{
+
+.answer-visible {
     font-size: 24px;
     font-weight: 200;
     margin-bottom: 30px;
 }
 
-.line-question{
+.line-question {
     background-color: rgba(166, 56, 5, 0.43);
     /* width: 1300px; */
     /* margin-top: 30px; */
