@@ -3,7 +3,7 @@ import arrowBtn from '../../images/MainFilter/ArrowButton.svg';
 
 import GetFilters from '../../data/GetFilters';
 import GetOptions from '../../data/GetOptions';
-
+import GetTypes from '../../data/GetTypes';
 
 
 const MainFilters = () => {
@@ -14,15 +14,7 @@ const MainFilters = () => {
                 <div className="MainFiltersAll">
                     <form className='MainFiltersForm' action='#' method='' >
                         <div className="MainFiltersFormElements">
-                            <div className="MainFiltersElement">
-                                <label className='MainFiltersElementName' htmlFor="type">Тип мероприятия</label>
-                                <select name="type" id="type" className='MainFiltersSelect'>
-                                    <option value="alltypes">Все типы</option>
-                                    <option value="bd">День рождения</option>
-                                    <option value="marrige">Свадьба</option>
-                                    <option value="corporate">Корпоратив</option>
-                                </select>
-                            </div>
+                            <GetTypes />
 
                             <GetFilters />
                             {/*Возможно будет лучше сделать это чекбоксом, чтобы можно было выбрать много вариантов */}

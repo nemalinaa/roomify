@@ -31,7 +31,7 @@ const GetFilters = () => {
         <div className="MainFiltersElement loftsSearchFormElement">
             <label className='MainFiltersElementName loftsSearchFormElementName' htmlFor="type">Станция метро</label>
             <select name="metro" id="metro" className='MainFiltersSelect'>
-                <option value="allmetro">Все станции</option>
+                <option id="allmetro" value="allmetro">Все станции</option>
                 {metroList.map(metro => (
                     <option id={metro.id} value={metro.nameMetro} >{metro.nameMetro}</option>
                 ))
