@@ -107,6 +107,8 @@ app.get('/reviews/:id', (req, res) => {
 });
 
 
+
+
 app.get('/rooms/:id', (req, res) => {
     const roomId = req.params.id;
     const query = `SELECT *,rooms.name AS name, thismetro.nameMetro AS metro, thistype.name AS type

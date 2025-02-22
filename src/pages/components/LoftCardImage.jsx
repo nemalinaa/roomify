@@ -6,6 +6,7 @@ import people from '../../images/Lofts/loftsImage/people.svg';
 import whatsapp from '../../images/Lofts/loftsImage/whatsapp.svg';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
+import GetOptionsCard from '../../data/GetOptionsCard';
 
 const LoftCardImage = () => {
     function CheckTitle(type) {
@@ -60,6 +61,7 @@ const LoftCardImage = () => {
 
 
     console.log(title);
+    console.log(room.id);
 
 
 
@@ -78,7 +80,7 @@ const LoftCardImage = () => {
                     <div className="loftCardTitleElements">
                         <div className="loftCardTitleElement">
                             <img src={house} alt="" />
-                            <span className="loftCardTitleElementText">{room.title}</span>
+                            <span className="loftCardTitleElementText">{title}</span>
                         </div>
                         <div className="loftCardTitleElement">
                             <img src={metrs} alt="" />
@@ -102,16 +104,8 @@ const LoftCardImage = () => {
             </div>
             <div className="loftCardContainerMainText">
                 <span className="loftCardDescriptionText">{room.description}</span>
-                <div className="loftCardContainerConditions">
-                    <h5 className="loftCardConditionsTitle">Условия аренды:</h5>
-                    <ul className="loftCardConditionsList">
-                        <li>Условие</li>
-                        <li>Условие</li>
-                        <li>Условие</li>
-                        <li>Условие</li>
-                        <li>Условие</li>
-                    </ul>
-                </div>
+                {room.id && <GetOptionsCard id={room.id} />}
+
             </div>
         </div>
     )

@@ -30,7 +30,7 @@ const GetRooms = ({ type, title }) => {
 
         };
         fetchData();
-    }, []);
+    }, [type]);
 
     if (err) {
         return <div>Произошла ошибка: {err}</div>; // Отображаем ошибку, если она есть
@@ -38,27 +38,29 @@ const GetRooms = ({ type, title }) => {
 
     console.log(roomsList);
 
+
+
     return (
         <div className="loftsListElements">
             {roomsList.map(room => (
-                < Link className = "link-card" to = {`/card/${room.id}`}>
-            <div className="loftsListElement">
-                <div className="loftsListElementImage">
-                    <img src={imageAmbra} />
-                </div>
-                <div className="loftsListElementText">
-                    <div className="loftsListElementName">{title} "{room.name}"</div>
-                    <div className="loftsListElementLocation">м. {room.metro}</div>
-                    <div className="loftsListElementPeople">{room.square}м², {room.capacity} чел.</div>
-                    <div className="loftsListElementBottomText">
-                        <div className="loftsListElementPrice">от {room.priceWeekdays}р/час</div>
-                        <div className="loftsListElementRating">Нет оценок</div>
+                < Link className="link-card" to={`/card/${room.id}`}>
+                    <div className="loftsListElement">
+                        <div className="loftsListElementImage">
+                            <img src={imageAmbra} />
+                        </div>
+                        <div className="loftsListElementText">
+                            <div className="loftsListElementName">{title} "{room.name}"</div>
+                            <div className="loftsListElementLocation">м. {room.metro}</div>
+                            <div className="loftsListElementPeople">{room.square}м², {room.capacity} чел.</div>
+                            <div className="loftsListElementBottomText">
+                                <div className="loftsListElementPrice">от {room.priceWeekdays}р/час</div>
+                                <div className="loftsListElementRating">Нет оценок</div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </Link>
-    ))
-}
+                </Link>
+            ))
+            }
         </div >
     )
 }

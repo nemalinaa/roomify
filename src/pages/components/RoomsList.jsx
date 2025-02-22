@@ -1,7 +1,6 @@
-import { Link } from "react-router";
 
 import './styles/LoftsList.css';
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import GetRooms from "../../data/GetRooms.jsx";
 
 const RoomsList = ({ typeSpace }) => {
@@ -19,24 +18,21 @@ const RoomsList = ({ typeSpace }) => {
         }
 
     }
-    function CheckTitle(newType){
-        switch(newType){
+    function CheckTitle(newType) {
+        switch (newType) {
             case 'lofts':
                 return 'Лофт';
             case 'bankets':
-                return 'Банкетный зал'; 
+                return 'Банкетный зал';
             case 'dance':
                 return 'Танцевальный зал';
             case 'photo':
-                return 'Фотостудия';   
+                return 'Фотостудия';
         }
     }
 
     const [newType, setNewType] = useState(CheckType(typeSpace));
     const [title, setTitle] = useState(CheckTitle(newType))
-
-    const [data, setData] = useState(null);
-    const [err, setErr] = useState(null);
 
     return (
 
@@ -44,7 +40,7 @@ const RoomsList = ({ typeSpace }) => {
             {/* <GetLoftsData onDataLoaded={(data) => setLoftsList(data)} /> */}
             {/* <GetMetroData onDataLoaded={(data) => setMetroList(data)} /> */}
             <div className="loftsListContainer">
-                <GetRooms type={newType} title={title}/>
+                <GetRooms type={newType} title={title} />
             </div>
         </div>
     )
