@@ -14,12 +14,24 @@ const MainFilters = () => {
     const [maxsquare, setMaxsquare] = useState(null);
     const [capacity, setCapacity] = useState(null);
     const [type, setType] = useState(null);
+    const [metro, setMetro] = useState(null);
+    const [option, setOption] = useState(null);
 
     const SetNewType = (data) => {
         console.log("Получены данные от дочернего компонента:", data);
         setType(data); // Обновляем состояние родительского компонента
     };
-    console.log(type);
+
+    const SetNewMetro = (data) => {
+        console.log("Получены данные от дочернего компонента:", data);
+        setMetro(data); // Обновляем состояние родительского компонента
+    };
+
+    const SetNewOption = (data) => {
+        console.log("Получены данные от дочернего компонента:", data);
+        setOption(data); // Обновляем состояние родительского компонента
+
+    };
 
     return (
         <div className="MainFiltersAllContainer">
@@ -29,7 +41,7 @@ const MainFilters = () => {
                         <div className="MainFiltersFormElements">
                             <GetTypes setType={SetNewType} />
 
-                            <GetFilters />
+                            <GetFilters setMetro={SetNewMetro} />
                             {/*Возможно будет лучше сделать это чекбоксом, чтобы можно было выбрать много вариантов */}
                             <div className="MainFiltersElement">
                                 <fieldset>
@@ -44,7 +56,7 @@ const MainFilters = () => {
                                 </fieldset>
                             </div>
 
-                            <GetOptions />
+                            <GetOptions setOption={SetNewOption} />
                             {/* <div className="MainFiltersElement">
                                 <label className='MainFiltersElementName' htmlFor="type">Опции площадки</label>
                                 <select name="options" id="options" className='MainFiltersSelect'>

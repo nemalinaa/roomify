@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 
-const GetOptions = () => {
+const GetOptions = ({ setOption }) => {
     const [optionsList, setOptionsList] = useState([]);
     const [data, setData] = useState(null);
     const [err, setErr] = useState(null);
+    const [currentoption, setCurrentOption] = useState(null);
+
+    function UpdateOption(newoption) {
+        setOption(newoption);
+        setCurrentOption(newoption);
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,7 +34,7 @@ const GetOptions = () => {
     return (
         <div className="MainFiltersElement">
             <label className='MainFiltersElementName' htmlFor="type">Опции площадки</label>
-            <select name="options" id="options" className='MainFiltersSelect'>
+            <select value={currentoption} onChange={(event) => { UpdateOption(event.target.value) }} name="options" id="options" className='MainFiltersSelect'>
                 <option id="nooptions" value="nooptions">Без опций</option>
                 {optionsList.map(option => (
                     <option id={option.id} value={option.name}>{option.name}</option>
