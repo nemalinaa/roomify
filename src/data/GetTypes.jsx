@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 
-const GetTypes = () => {
+const GetTypes = ({ setType }) => {
     const [typesList, setTypesList] = useState([]);
     const [data, setData] = useState(null);
     const [err, setErr] = useState(null);
+    const [currenttype, setCurrenttype] = useState(null);
+
+    function UpdateType(newtype) {
+        setType(newtype);
+        setCurrenttype(newtype);
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,13 +31,12 @@ const GetTypes = () => {
         fetchData();
 
     }, []);
-    console.log(data);
     if (err) return <div>Произошла ошибка: {err}</div>
 
     return (
         <div className="MainFiltersElement" >
             <label className='MainFiltersElementName' htmlFor="type">Тип помещения</label>
-            <select name="type" id="type" className='MainFiltersSelect'>
+            <select value={currenttype} onChange={(event) => { UpdateType(event.target.value) }} name="type" id="type" className='MainFiltersSelect'>
                 <option id="alltypes" value="alltypes">Все типы</option>
                 {typesList.map(type => (
                     <option id={type.idTypes} value={type.name}>{type.name}</option>
