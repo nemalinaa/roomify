@@ -18,18 +18,15 @@ const MainFilters = () => {
     const [option, setOption] = useState(null);
 
     const SetNewType = (data) => {
-        console.log("Получены данные от дочернего компонента:", data);
         setType(data); // Обновляем состояние родительского компонента
     };
 
     const SetNewMetro = (data) => {
-        console.log("Получены данные от дочернего компонента:", data);
-        setMetro(data); // Обновляем состояние родительского компонента
+        setMetro(data);
     };
 
     const SetNewOption = (data) => {
-        console.log("Получены данные от дочернего компонента:", data);
-        setOption(data); // Обновляем состояние родительского компонента
+        setOption(data);
 
     };
 
