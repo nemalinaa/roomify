@@ -9,21 +9,17 @@ const MainFilters = () => {
     const [metroList, setMetroList] = useState([]);
     const [typesList, setTypesList] = useState([]);
 
-
     const [data, setData] = useState(null);
     const [err, setErr] = useState(null);
-
-
 
     const [mincost, setMincost] = useState(null);
     const [maxcost, setMaxcost] = useState(null);
     const [minsquare, setMinsquare] = useState(null);
     const [maxsquare, setMaxsquare] = useState(null);
     const [capacity, setCapacity] = useState(null);
-
     const [type, setType] = useState(null);
     const [metro, setMetro] = useState(null);
-    const [option, setOption] = useState(null);
+    const [option, setOption] = useState([]);
 
 
     useEffect(() => {
@@ -85,6 +81,16 @@ const MainFilters = () => {
     }
 
 
+    const handleOptionChange = (optionName) => {
+        setOption((prevSelected) => {
+            if (prevSelected && prevSelected.includes(optionName)) {
+                return prevSelected.filter((name) => name !== optionName);
+            } else {
+                return [...(prevSelected || []), optionName];
+            }
+        });
+    };
+
     const searchelement = { type, metro, mincost, maxcost, option, minsquare, maxsquare };
     console.log(searchelement);
 
@@ -106,7 +112,7 @@ const MainFilters = () => {
 
                             <div className="MainFiltersElement loftsSearchFormElement">
                                 <label className='MainFiltersElementName loftsSearchFormElementName' htmlFor="type">Станция метро</label>
-                                <select value={metro} onChange={(event) => { setMetro(event.target.value) }} name="metro" id="metro" className='MainFiltersSelect'>
+                                <select value={metro} onChange={(event) => { setMetro(event.target.value) }} name=" metro" id="metro" className='MainFiltersSelect'>
                                     <option id="allmetro" value="allmetro">Все станции</option>
                                     {metroList.map(metro => (
                                         <option id={metro.id} value={metro.nameMetro} >{metro.nameMetro}</option>
@@ -129,6 +135,52 @@ const MainFilters = () => {
                             </div>
 
                             <div className="MainFiltersElement">
+                                <label className="MainFiltersElementName" htmlFor="option-ul">
+                                    Опции площадки
+                                </label>
+                                <div className="dropdown">
+                                    <label htmlFor='option-ul'>Выбрать опции</label>
+
+                                    <ul id="option-ul">
+                                        <li>
+                                            <input
+                                                id="no-opt"
+                                                type="checkbox"
+                                                onChange={() => handleOptionChange("Без опций")}
+                                            />
+                                            <label for="no-opt">Без опций</label>
+                                        </li>
+                                        {optionsList.map((currentoption) => (
+                                            <li key={currentoption.idOption}>
+                                                <input
+                                                    id={currentoption.idOption}
+                                                    type="checkbox"
+                                                    onChange={() => handleOptionChange(currentoption.name)}
+                                                />
+                                                <label for={currentoption.idOption}>{currentoption.name}</label>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                {/* 
+                                <div>
+                                    {optionsList.map((currentoption) => (
+                                        <div key={currentoption.idOption} className="checkbox-item">
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={option.includes(currentoption.name)}
+                                                    onChange={(event) => handleOptionChange(currentoption.name)}
+                                                />
+                                                {currentoption.name}
+                                            </label>
+                                        </div>
+                                    ))}
+                                </div> */}
+                            </div>
+
+                            {/* <div className="MainFiltersElement">
                                 <label className='MainFiltersElementName' htmlFor="type">Опции площадки</label>
                                 <select value={option} onChange={(event) => { setOption(event.target.value) }} name="options" id="options" className='MainFiltersSelect'>
                                     <option id="nooptions" value="nooptions">Без опций</option>
@@ -136,7 +188,7 @@ const MainFilters = () => {
                                         <option id={option.id} value={option.name}>{option.name}</option>
                                     ))}
                                 </select>
-                            </div>
+                            </div> */}
 
                             <div className="MainFiltersElement">
                                 <fieldset>
@@ -159,9 +211,9 @@ const MainFilters = () => {
                         <button className='MainFiltersFormBtn' type='submit'>Подобрать помещение <img src={arrowBtn} /></button>
                     </form>
                 </div>
-            </div>
+            </div >
 
-        </div>
+        </div >
     )
 }
 

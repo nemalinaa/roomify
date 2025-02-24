@@ -150,3 +150,50 @@ legend {
     margin-left: 8px;
     color: rgba(0, 0, 0, 0.35);
 }
+
+
+.dropdown {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.35);
+    border: 2px solid rgba(0, 0, 0, 0.35);
+    border-radius: 30px;
+    height: 62px;
+    font-size: 20px;
+    padding: 0 10px;
+    content: normal;
+    font-weight: 700;
+    /* курсор-указатель для пользователя */
+}
+
+.dropdown>span {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.dropdown ul {
+    border-radius: 20px;
+    display: none;
+    position: absolute;
+    background: white;
+    list-style-type: none;
+    padding: 10px 0;
+}
+
+.dropdown:hover ul {
+    font-weight: 400;
+    display: block;
+    /* плавное появление списка при наведении */
+}
+
+.dropdown:hover li {
+    padding: 3px 0;
+}
+
+.dropdown input[type="checkbox"] {
+
+    margin-right: 5px;
+    /* добавляет пространство вокруг чекбокса */
+}
