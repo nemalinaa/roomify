@@ -1,7 +1,31 @@
 import './styles/LoftsSearch.css';
 import GetFilters from '../../data/GetFilters';
+import { useEffect, useState } from 'react';
 
 const RoomsSearch = () => {
+    const [data, setData] = useState(null);
+    const [err, setErr] = useState(null);
+
+    const [metroList, setMetroList] = useState([]);
+    const [metro, setMetro] = useState(null);
+
+    useEffect(() => {
+        const fetchDataMetro = async () => {
+            try {
+                const response = await fetch('http://localhost:3002/metro');
+                if (!response.ok) {
+                    throw new Error(`Ошибка HTTP! Статус: ${response.status}`);
+                }
+                const json = await response.json();
+                setMetroList(json); // Обновляем состояние metroList
+                setData(json);
+            } catch (error) {
+                setErr(error.message); // Сохраняем сообщение об ошибке
+                console.error("Ошибка при загрузке данных:", error);
+            }
+        };
+        fetchDataMetro();
+    })
     return (
         <div className="loftsSearchAll">
             <div className="loftsSearchContainer">
@@ -9,15 +33,16 @@ const RoomsSearch = () => {
                     <div className="loftsSearchFormElements">
 
 
-                        <GetFilters />
-                        {/* <label htmlFor="type" className="loftsSearchFormElementName">Станция метро</label>
-                            <select name="metro" id="metro" className="loftsSearchFormSelect">
-                                <option value="allmetro">Все станции</option>
-                                <option value="lublino">Люблино</option>
-                                <option value="fili">Фили</option>
-                                <option value="ulitsa1905">Улица 1905</option>
-                                <option value="pushk">Пушкинская</option>
-                            </select> */}
+                        <div className="loftsSearchFormElement">
+                            <label htmlFor="metro" className="loftsSearchFormElementName">Станция метро</label>
+                            <select value={metro} onChange={(event) => { setMetro(event.target.value) }} name="metro" id="metro" className="loftsSearchFormSelect">
+                                <option id="allmetro" value="allmetro">Все станции</option>
+                                {metroList.map(metro => (
+                                    <option id={metro.id} value={metro.nameMetro} >{metro.nameMetro}</option>
+                                ))
+                                }
+                            </select>
+                        </div>
 
                         <div className="loftsSearchFormElement">
                             <fieldset>
