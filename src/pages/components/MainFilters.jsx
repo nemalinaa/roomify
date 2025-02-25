@@ -1,5 +1,7 @@
 import './styles/MainFilters.css';
 import arrowBtn from '../../images/MainFilter/ArrowButton.svg';
+// import arrowOpen from '../../images/MainFilter/arrowOpen.svg';
+import arrowClosed from '../../images/MainFilter/arrowClosed.svg';
 
 import { useEffect, useState } from 'react';
 
@@ -17,10 +19,26 @@ const MainFilters = () => {
     const [minsquare, setMinsquare] = useState(null);
     const [maxsquare, setMaxsquare] = useState(null);
     const [capacity, setCapacity] = useState(null);
-    const [type, setType] = useState(null);
-    const [metro, setMetro] = useState(null);
+    const [type, setType] = useState([]);
+    const [metro, setMetro] = useState([]);
     const [option, setOption] = useState([]);
 
+    const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+    const [isMetroOpen, setIsMetroOpen] = useState(false);
+    const [isTypesOpen, setIsTypesOpen] = useState(false);
+
+    // Обработчик клика на поле с опциями
+    const toggleOptions = () => {
+        setIsOptionsOpen(!isOptionsOpen); // Переключаем состояние
+    };
+
+    const toggleMetro = ()=>{
+        setIsMetroOpen(!isMetroOpen);
+    }
+
+    const toggleTypes = ()=>{
+        setIsTypesOpen(!isTypesOpen);
+    }
 
     useEffect(() => {
         const fetchDataOptions = async () => {
@@ -75,18 +93,80 @@ const MainFilters = () => {
         fetchDataOptions();
     }, []);
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (!event.target.closest('.dropdown') && isOptionsOpen) {
+                setIsOptionsOpen(false); // Закрываем список, если кликнули вне поля
+            }
+        };
+    
+        document.addEventListener('click', handleClickOutside);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [isOptionsOpen]);
+
+    useEffect(()=>{
+        const handleClickOutside = (event)=>{
+            if(!event.target.closest('.dropdown') && isMetroOpen){
+                setIsMetroOpen(false);
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+        return ()=>{
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [isMetroOpen]);
+
+    useEffect(()=>{
+        const handleClickOutside = (event)=>{
+            if(!event.target.closest('.dropdown') && isTypesOpen){
+                setIsTypesOpen(false);
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+        return ()=>{
+            document.removeEventListener('click', handleClickOutside);
+        }
+    }, [isTypesOpen]);
+
 
     if (err) {
         return <div>Произошла ошибка: {err}</div>; // Отображаем ошибку, если она есть
-    }
+    };
 
 
-    const handleOptionChange = (optionName) => {
+    const handleOptionChange = (event, optionName) => {
+        event.stopPropagation(); // Предотвращаем закрытие списка
         setOption((prevSelected) => {
             if (prevSelected && prevSelected.includes(optionName)) {
                 return prevSelected.filter((name) => name !== optionName);
             } else {
                 return [...(prevSelected || []), optionName];
+            }
+        });
+    };
+
+    const handleMetroChange = (event, metroName) => {
+        event.stopPropagation();
+        setMetro((prevSelected)=>{
+            if(prevSelected && prevSelected.includes(metroName)) {
+                return prevSelected.filter((name )=> name !== metroName);
+            }else{
+                return [...(prevSelected || []), metroName];
+            }
+        });
+    };
+
+    const handleTypesChange = (event, typeName) => {
+        event.stopPropagation();
+        setType((prevSelected)=>{
+            if(prevSelected && prevSelected.includes(typeName)){
+                return prevSelected.filter((name) => name !== typeName);
+            }else{
+                return [...(prevSelected || []), typeName];
             }
         });
     };
@@ -102,25 +182,47 @@ const MainFilters = () => {
                         <div className="MainFiltersFormElements">
                             <div className="MainFiltersElement" >
                                 <label className='MainFiltersElementName' htmlFor="type">Тип помещения</label>
-                                <select value={type} onChange={(event) => { setType(event.target.value) }} name="type" id="type" className='MainFiltersSelect'>
-                                    <option id="alltypes" value="alltypes">Все типы</option>
-                                    {typesList.map(type => (
-                                        <option id={type.idTypes} value={type.name}>{type.name}</option>
-                                    ))}
-                                </select>
+                                <div className="dropdown" onClick={toggleTypes}>
+                                    <div className="dropdownLabel">
+                                        <span>Все типы</span>
+                                        <img src={arrowClosed} alt=""/>
+                                    </div>
+                                    <ul style={{display: isTypesOpen ? 'block' : 'none'}}>
+                                        {typesList.map((currentType)=>(
+                                            <li key={currentType.id} onClick={(e)=>handleTypesChange(e, currentType.name)}>
+                                                <input 
+                                                    type="checkbox"
+                                                    checked={type.includes(currentType.name)}
+                                                    onChange={()=>{}}
+                                                />
+                                                {currentType.name}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </div >
 
                             <div className="MainFiltersElement loftsSearchFormElement">
                                 <label className='MainFiltersElementName loftsSearchFormElementName' htmlFor="type">Станция метро</label>
-                                <select value={metro} onChange={(event) => { setMetro(event.target.value) }} name=" metro" id="metro" className='MainFiltersSelect'>
-                                    <option id="allmetro" value="allmetro">Все станции</option>
-                                    {metroList.map(metro => (
-                                        <option id={metro.id} value={metro.nameMetro} >{metro.nameMetro}</option>
-                                    ))
-                                    }
-                                </select>
+                                <div className="dropdown" onClick={toggleMetro}>
+                                    <div className="dropdownLabel">
+                                        <span>Все станции</span>
+                                        <img src={arrowClosed} alt=""/>
+                                    </div>
+                                    <ul style={{display: isMetroOpen ? 'block' : 'none'}}>
+                                        {metroList.map((currentMetro)=>(
+                                            <li key={currentMetro.id} onClick={(e)=>handleMetroChange(e, currentMetro.nameMetro)}>
+                                                <input 
+                                                    type="checkbox"
+                                                    checked={metro.includes(currentMetro.nameMetro)} 
+                                                    onChange={()=>{}}
+                                                />
+                                                {currentMetro.nameMetro}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </div>
-                            {/*Возможно будет лучше сделать это чекбоксом, чтобы можно было выбрать много вариантов */}
                             <div className="MainFiltersElement">
                                 <fieldset>
                                     <legend className='MainFiltersElementName'>Стоимость <span>₽/час</span></legend>
@@ -130,7 +232,6 @@ const MainFilters = () => {
                                         <input value={maxcost} onChange={(event) => { setMaxcost(event.target.value) }} id="maxcost" name="max" onkeydown="return event.key !== '-';" min="0" type='number' placeholder='До' />
                                         {/* вместо мин 0 в значении до нужно поставить константу, где лежит переменная от */}
                                     </div>
-
                                 </fieldset>
                             </div>
 
@@ -138,50 +239,26 @@ const MainFilters = () => {
                                 <label className="MainFiltersElementName" htmlFor="option-ul">
                                     Опции площадки
                                 </label>
-                                <div className="dropdown">
-                                    <label className='dropdownLabel' htmlFor='option-ul'>Выбрать опции</label>
-
-                                    <ul id="option-ul">
-                                        {optionsList.map((currentoption) => (
-                                            <li key={currentoption.idOption}>
-                                                <input
-                                                    id={currentoption.idOption}
-                                                    type="checkbox"
-                                                    onChange={() => handleOptionChange(currentoption.name)
-                                                    }
+                                <div className="dropdown" onClick={toggleOptions}>
+                                    {/* Кнопка для открытия списка */}
+                                    <div className="dropdownLabel">
+                                        <span>Выбрать опции</span>
+                                        <img src={arrowClosed} alt=""/>
+                                    </div>
+                                    <ul style={{ display: isOptionsOpen ? 'block' : 'none' }}>
+                                        {optionsList.map((currentOption) => (
+                                            <li key={currentOption.id} onClick={(e) => handleOptionChange(e, currentOption.name)}>
+                                                <input 
+                                                    type="checkbox" 
+                                                    checked={option.includes(currentOption.name)} 
+                                                    onChange={() => {}}
                                                 />
-                                                <label for={currentoption.idOption}>{currentoption.name}</label>
+                                                {currentOption.name}
                                             </li>
                                         ))}
                                     </ul>
                                 </div>
-
-                                {/* 
-                                <div>
-                                    {optionsList.map((currentoption) => (
-                                        <div key={currentoption.idOption} className="checkbox-item">
-                                            <label>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={option.includes(currentoption.name)}
-                                                    onChange={(event) => handleOptionChange(currentoption.name)}
-                                                />
-                                                {currentoption.name}
-                                            </label>
-                                        </div>
-                                    ))}
-                                </div> */}
                             </div>
-
-                            {/* <div className="MainFiltersElement">
-                                <label className='MainFiltersElementName' htmlFor="type">Опции площадки</label>
-                                <select value={option} onChange={(event) => { setOption(event.target.value) }} name="options" id="options" className='MainFiltersSelect'>
-                                    <option id="nooptions" value="nooptions">Без опций</option>
-                                    {optionsList.map(option => (
-                                        <option id={option.id} value={option.name}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </div> */}
 
                             <div className="MainFiltersElement">
                                 <fieldset>

@@ -163,12 +163,19 @@ legend {
     font-size: 20px;
     padding: 0 10px;
     content: normal;
-    font-weight: 700;
+    z-index: 100;
+    /* font-weight: 700; */
     /* курсор-указатель для пользователя */
 }
 
 .dropdownLabel {
-    position: relative;
+    /* position: relative; */
+    font-weight: 700;
+    font-weight: 700;
+    display: flex;
+    width: 370px;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .dropdown>span {
@@ -184,19 +191,33 @@ legend {
     background: white;
     list-style-type: none;
     padding: 10px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Добавляем тень для лучшего визуального эффекта */
 }
 
-.dropdown:hover ul {
-    font-weight: 400;
-    display: block;
+/* .dropdown:hover ul {} */
+    /* font-weight: 400;
+    display: block; */
     /* плавное появление списка при наведении */
+
+.dropdown li {
+    padding: 3px 10px;
+    cursor: pointer;
 }
 
-.dropdown:hover li {
-    padding: 3px 0;
+.dropdown li:hover {
+    /* padding: 3px 0; */
+    background-color: #f0f0f0; /* Изменяем цвет фона при наведении на элемент списка */
 }
 
 .dropdown input[type="checkbox"] {
-    margin-right: 5px;
+    margin-right: 10px;
+    transform: scale(1.5); /* Увеличиваем размер в 2 раза */
+    transform-origin: center;
+    /* добавляет пространство вокруг чекбокса */
+}
+
+.dropdown input[type="checkbox"]:checked {
+    margin-right: 10px;
+    accent-color: #801525; 
     /* добавляет пространство вокруг чекбокса */
 }

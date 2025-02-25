@@ -27,7 +27,7 @@ const Questions = () => {
         };
 
         fetchData();
-    })
+    },[])
 
 
     function clickImage(question) {
