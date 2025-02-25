@@ -106,7 +106,14 @@ app.get('/reviews/:id', (req, res) => {
     });
 });
 
-
+app.get('/questions', (req, res) => {
+    db.query('SELECT * FROM questions', (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(results);
+    })
+})
 
 
 app.get('/rooms/:id', (req, res) => {
