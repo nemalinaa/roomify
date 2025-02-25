@@ -167,6 +167,10 @@ legend {
     /* курсор-указатель для пользователя */
 }
 
+.dropdownLabel {
+    position: relative;
+}
+
 .dropdown>span {
     border: 1px solid #ccc;
     padding: 5px;
@@ -193,7 +197,6 @@ legend {
 }
 
 .dropdown input[type="checkbox"] {
-
     margin-right: 5px;
     /* добавляет пространство вокруг чекбокса */
 }

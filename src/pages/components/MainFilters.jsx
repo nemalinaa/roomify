@@ -139,23 +139,16 @@ const MainFilters = () => {
                                     Опции площадки
                                 </label>
                                 <div className="dropdown">
-                                    <label htmlFor='option-ul'>Выбрать опции</label>
+                                    <label className='dropdownLabel' htmlFor='option-ul'>Выбрать опции</label>
 
                                     <ul id="option-ul">
-                                        <li>
-                                            <input
-                                                id="no-opt"
-                                                type="checkbox"
-                                                onChange={() => handleOptionChange("Без опций")}
-                                            />
-                                            <label for="no-opt">Без опций</label>
-                                        </li>
                                         {optionsList.map((currentoption) => (
                                             <li key={currentoption.idOption}>
                                                 <input
                                                     id={currentoption.idOption}
                                                     type="checkbox"
-                                                    onChange={() => handleOptionChange(currentoption.name)}
+                                                    onChange={() => handleOptionChange(currentoption.name)
+                                                    }
                                                 />
                                                 <label for={currentoption.idOption}>{currentoption.name}</label>
                                             </li>
