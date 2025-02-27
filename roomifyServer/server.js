@@ -6,6 +6,8 @@ const cors = require('cors');
 const app = express();
 const port = 3002;
 
+let currentSearch = null;
+
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -163,6 +165,41 @@ app.get('/lofts-with-options/:id', (req, res) => {
         res.json(results);
     });
 });
+
+
+app.get('/popular', (req, res) => {
+    db.query('SELECT *,thismetro.nameMetro AS metro FROM rooms LEFT JOIN metro as thismetro ON thismetro.idMetro = rooms.metro WHERE isPopular="1"', (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(results);
+    });
+})
+
+
+app.post('/search', (req, res) => {
+    const newSearch = req.body;
+    currentSearch = newSearch;
+
+    res.status(201).json({
+        message: 'Search created/updated successfully',
+        search: currentSearch
+    });
+});
+
+
+// app.get('/search', (req, res) => {
+//     const types_list = currentSearch.type;
+//     const metro_list = currentSearch.metro;
+//     const mincost = currentSearch.mincost;
+//     const maxcost = currentSearch.maxcost;
+//     const options_list = currentSearch.option;
+//     const minsquare = currentSearch.minsquare;
+// const maxsquare = currentSearch.maxsquare;
+// const capacity = currentSearch.capacity;
+
+//     const query = ``;
+// })
 
 
 app.listen(port, () => {

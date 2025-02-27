@@ -32,11 +32,11 @@ const MainFilters = () => {
         setIsOptionsOpen(!isOptionsOpen); // Переключаем состояние
     };
 
-    const toggleMetro = ()=>{
+    const toggleMetro = () => {
         setIsMetroOpen(!isMetroOpen);
     }
 
-    const toggleTypes = ()=>{
+    const toggleTypes = () => {
         setIsTypesOpen(!isTypesOpen);
     }
 
@@ -99,38 +99,39 @@ const MainFilters = () => {
                 setIsOptionsOpen(false); // Закрываем список, если кликнули вне поля
             }
         };
-    
+
         document.addEventListener('click', handleClickOutside);
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
     }, [isOptionsOpen]);
 
-    useEffect(()=>{
-        const handleClickOutside = (event)=>{
-            if(!event.target.closest('.dropdown') && isMetroOpen){
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (!event.target.closest('.dropdown') && isMetroOpen) {
                 setIsMetroOpen(false);
             }
         };
 
         document.addEventListener('click', handleClickOutside);
-        return ()=>{
+        return () => {
             document.removeEventListener('click', handleClickOutside);
         };
     }, [isMetroOpen]);
 
-    useEffect(()=>{
-        const handleClickOutside = (event)=>{
-            if(!event.target.closest('.dropdown') && isTypesOpen){
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (!event.target.closest('.dropdown') && isTypesOpen) {
                 setIsTypesOpen(false);
             }
         };
 
         document.addEventListener('click', handleClickOutside);
-        return ()=>{
+        return () => {
             document.removeEventListener('click', handleClickOutside);
         }
     }, [isTypesOpen]);
+
 
 
     if (err) {
@@ -151,10 +152,10 @@ const MainFilters = () => {
 
     const handleMetroChange = (event, metroName) => {
         event.stopPropagation();
-        setMetro((prevSelected)=>{
-            if(prevSelected && prevSelected.includes(metroName)) {
-                return prevSelected.filter((name )=> name !== metroName);
-            }else{
+        setMetro((prevSelected) => {
+            if (prevSelected && prevSelected.includes(metroName)) {
+                return prevSelected.filter((name) => name !== metroName);
+            } else {
                 return [...(prevSelected || []), metroName];
             }
         });
@@ -162,10 +163,10 @@ const MainFilters = () => {
 
     const handleTypesChange = (event, typeName) => {
         event.stopPropagation();
-        setType((prevSelected)=>{
-            if(prevSelected && prevSelected.includes(typeName)){
+        setType((prevSelected) => {
+            if (prevSelected && prevSelected.includes(typeName)) {
                 return prevSelected.filter((name) => name !== typeName);
-            }else{
+            } else {
                 return [...(prevSelected || []), typeName];
             }
         });
@@ -178,22 +179,22 @@ const MainFilters = () => {
         <div className="MainFiltersAllContainer">
             <div className="MainFiltersContainer">
                 <div className="MainFiltersAll">
-                    <form className='MainFiltersForm' action='/lofts' method='get' >
+                    <form className='MainFiltersForm' action="/" method='get' >
                         <div className="MainFiltersFormElements">
                             <div className="MainFiltersElement" >
                                 <label className='MainFiltersElementName' htmlFor="type">Тип помещения</label>
                                 <div className="dropdown" onClick={toggleTypes}>
                                     <div className="dropdownLabel">
                                         <span>Все типы</span>
-                                        <img src={arrowClosed} alt=""/>
+                                        <img src={arrowClosed} alt="" />
                                     </div>
-                                    <ul style={{display: isTypesOpen ? 'block' : 'none'}}>
-                                        {typesList.map((currentType)=>(
-                                            <li key={currentType.id} onClick={(e)=>handleTypesChange(e, currentType.name)}>
-                                                <input 
+                                    <ul style={{ display: isTypesOpen ? 'block' : 'none' }}>
+                                        {typesList.map((currentType) => (
+                                            <li key={currentType.idTypes} onClick={(e) => handleTypesChange(e, currentType.idTypes)}>
+                                                <input
                                                     type="checkbox"
-                                                    checked={type.includes(currentType.name)}
-                                                    onChange={()=>{}}
+                                                    checked={type.includes(currentType.idTypes)}
+                                                    onChange={() => { }}
                                                 />
                                                 {currentType.name}
                                             </li>
@@ -207,15 +208,15 @@ const MainFilters = () => {
                                 <div className="dropdown" onClick={toggleMetro}>
                                     <div className="dropdownLabel">
                                         <span>Все станции</span>
-                                        <img src={arrowClosed} alt=""/>
+                                        <img src={arrowClosed} alt="" />
                                     </div>
-                                    <ul style={{display: isMetroOpen ? 'block' : 'none'}}>
-                                        {metroList.map((currentMetro)=>(
-                                            <li key={currentMetro.id} onClick={(e)=>handleMetroChange(e, currentMetro.nameMetro)}>
-                                                <input 
+                                    <ul style={{ display: isMetroOpen ? 'block' : 'none' }}>
+                                        {metroList.map((currentMetro) => (
+                                            <li key={currentMetro.idMetro} onClick={(e) => handleMetroChange(e, currentMetro.idMetro)}>
+                                                <input
                                                     type="checkbox"
-                                                    checked={metro.includes(currentMetro.nameMetro)} 
-                                                    onChange={()=>{}}
+                                                    checked={metro.includes(currentMetro.idMetro)}
+                                                    onChange={() => { }}
                                                 />
                                                 {currentMetro.nameMetro}
                                             </li>
@@ -243,15 +244,15 @@ const MainFilters = () => {
                                     {/* Кнопка для открытия списка */}
                                     <div className="dropdownLabel">
                                         <span>Выбрать опции</span>
-                                        <img src={arrowClosed} alt=""/>
+                                        <img src={arrowClosed} alt="" />
                                     </div>
                                     <ul style={{ display: isOptionsOpen ? 'block' : 'none' }}>
                                         {optionsList.map((currentOption) => (
-                                            <li key={currentOption.id} onClick={(e) => handleOptionChange(e, currentOption.name)}>
-                                                <input 
-                                                    type="checkbox" 
-                                                    checked={option.includes(currentOption.name)} 
-                                                    onChange={() => {}}
+                                            <li key={currentOption.idOptions} onClick={(e) => handleOptionChange(e, currentOption.idOptions)}>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={option.includes(currentOption.idOptions)}
+                                                    onChange={() => { }}
                                                 />
                                                 {currentOption.name}
                                             </li>
