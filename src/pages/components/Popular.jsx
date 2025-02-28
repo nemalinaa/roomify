@@ -1,4 +1,4 @@
-import SlideShow1 from "../../images/SlideShow/SlideShow1.svg";
+import SlideShow1 from "../../images/Lofts/castle/3.webp";
 import house from '../../images/Popular/popularhome.svg';
 import metrs from '../../images/Popular/metrs.svg';
 import people from '../../images/Popular/people.svg';
