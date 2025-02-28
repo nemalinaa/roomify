@@ -1,7 +1,7 @@
 import SlideShow1 from "../../images/SlideShow/SlideShow1.svg";
-import house from '../../images/Lofts/loftsImage/littlehouse.svg';
-import metrs from '../../images/Lofts/loftsImage/metrs.svg';
-import people from '../../images/Lofts/loftsImage/people.svg';
+import house from '../../images/Popular/popularhome.svg';
+import metrs from '../../images/Popular/metrs.svg';
+import people from '../../images/Popular/people.svg';
 import './styles/Popular.css';
 import { useEffect, useState } from "react";
 
@@ -88,25 +88,25 @@ const Popular = () => {
                 <div className="background-shadow">
                     <div className="all-text">
                         <div className="name-text">
-                            <div>{currentElement.name}</div>
+                            <div>{title} {currentElement?.name || 'Название не указано'}</div>
                         </div>
                         <div className="other-text">
                             <div className="elements_text">
                                 <div className="element">
                                     <img alt="" src={house} />
-                                    <div className="text">{title}</div>
+                                    <div className="text">{title || 'Тип не указан'}</div>
                                 </div>
                                 <div className="element">
                                     <img alt="" src={people} />
-                                    <div className="text">{currentElement.capacity}</div>
+                                    <div className="text">{currentElement?.capacity} чел.</div>
                                 </div>
                                 <div className="element">
                                     <img src={metrs} />
-                                    <div className="text">{currentElement.square}</div>
+                                    <div className="text">{currentElement?.square} м²</div>
                                 </div>
                             </div>
                             <div className="right-text">
-                                от {currentElement.priceWeekdays}p/ч.
+                                от {currentElement?.priceWeekdays || 'Цена не указана'}p/ч.
                             </div>
                         </div>
                     </div>
