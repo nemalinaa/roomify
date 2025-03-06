@@ -4,9 +4,12 @@ import arrowBtn from '../../images/MainFilter/ArrowButton.svg';
 import arrowClosed from '../../images/MainFilter/arrowClosed.svg';
 
 import { useEffect, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router';
+import qs from 'qs';
 
 
 const MainFilters = () => {
+    const navigate = useNavigate();
     const [optionsList, setOptionsList] = useState([]);
     const [metroList, setMetroList] = useState([]);
     const [typesList, setTypesList] = useState([]);
@@ -161,25 +164,70 @@ const MainFilters = () => {
         });
     };
 
-    const handleTypesChange = (event, typeName) => {
-        event.stopPropagation();
+    const handleTypesChange = (event, typeId) => {
+        event.stopPropagation(); // Предотвращаем закрытие списка
         setType((prevSelected) => {
-            if (prevSelected && prevSelected.includes(typeName)) {
-                return prevSelected.filter((name) => name !== typeName);
+            if (prevSelected.includes(typeId)) {
+                return prevSelected.filter((id) => id !== typeId); // Удаляем выбранный элемент
             } else {
-                return [...(prevSelected || []), typeName];
+                return [...prevSelected, typeId]; // Добавляем выбранный элемент
             }
         });
     };
 
-    const searchelement = { type, metro, mincost, maxcost, option, minsquare, maxsquare };
-    console.log(searchelement);
+    // let searchdata = { type, metro, option, mincost, maxcost, minsquare, maxsquare, capacity };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        let searchData = {
+            typesList: type || [], // Преобразуем массив ID в строку
+            metroList: metro || [],
+            optionsList: option || [],
+            mincost: mincost || 0,
+            maxcost: maxcost || 100000,
+            minsquare: minsquare || 0,
+            maxsquare: maxsquare || 100000,
+            capacity: capacity || 0
+        };
+
+        try {
+            const response = await fetch('http://localhost:3002/save-search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(searchData)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP, статус:${response.status}`);
+            }
+
+            const dataForm = await response.json();
+            console.log('Сервервный ответ:', dataForm);
+            navigate(`/results`);
+        } catch (error) {
+            console.error('Ошибка при отправке данных', error);
+        };
+
+
+
+
+        // const queryParams = qs.stringify(formData, { encode: false, arrayFormat: 'comma' });
+
+        // Переходим на страницу с результатами, передавая параметры в URL
+
+    };
+
+    // console.log(searchdata);
+
 
     return (
         <div className="MainFiltersAllContainer">
             <div className="MainFiltersContainer">
                 <div className="MainFiltersAll">
-                    <form className='MainFiltersForm' action="/" method='get' >
+                    <form className='MainFiltersForm' onSubmit={handleSubmit} method='get' >
                         <div className="MainFiltersFormElements">
                             <div className="MainFiltersElement" >
                                 <label className='MainFiltersElementName' htmlFor="type">Тип помещения</label>
@@ -190,13 +238,13 @@ const MainFilters = () => {
                                     </div>
                                     <ul style={{ display: isTypesOpen ? 'block' : 'none' }}>
                                         {typesList.map((currentType) => (
-                                            <li key={currentType.idTypes} onClick={(e) => handleTypesChange(e, currentType.idTypes)}>
+                                            <li key={currentType.idTypes} >
                                                 <input
                                                     type="checkbox"
                                                     checked={type.includes(currentType.idTypes)}
-                                                    onChange={() => { }}
+                                                    onChange={(e) => handleTypesChange(e, currentType.idTypes)}
                                                 />
-                                                {currentType.name}
+                                                <span checked={type.includes(currentType.idTypes)} onClick={(e) => handleTypesChange(e, currentType.idTypes)}>{currentType.name}</span>
                                             </li>
                                         ))}
                                     </ul>
@@ -212,13 +260,13 @@ const MainFilters = () => {
                                     </div>
                                     <ul style={{ display: isMetroOpen ? 'block' : 'none' }}>
                                         {metroList.map((currentMetro) => (
-                                            <li key={currentMetro.idMetro} onClick={(e) => handleMetroChange(e, currentMetro.idMetro)}>
+                                            <li key={currentMetro.idMetro} >
                                                 <input
                                                     type="checkbox"
                                                     checked={metro.includes(currentMetro.idMetro)}
-                                                    onChange={() => { }}
+                                                    onChange={(e) => handleMetroChange(e, currentMetro.idMetro)}
                                                 />
-                                                {currentMetro.nameMetro}
+                                                <span checked={metro.includes(currentMetro.idMetro)} onClick={(e) => handleMetroChange(e, currentMetro.idMetro)}>{currentMetro.nameMetro}</span>
                                             </li>
                                         ))}
                                     </ul>
@@ -248,13 +296,13 @@ const MainFilters = () => {
                                     </div>
                                     <ul style={{ display: isOptionsOpen ? 'block' : 'none' }}>
                                         {optionsList.map((currentOption) => (
-                                            <li key={currentOption.idOptions} onClick={(e) => handleOptionChange(e, currentOption.idOptions)}>
+                                            <li key={currentOption.idOptions} >
                                                 <input
                                                     type="checkbox"
                                                     checked={option.includes(currentOption.idOptions)}
-                                                    onChange={() => { }}
+                                                    onChange={(e) => handleOptionChange(e, currentOption.idOptions)}
                                                 />
-                                                {currentOption.name}
+                                                <span checked={option.includes(currentOption.idOptions)} onClick={(e) => handleOptionChange(e, currentOption.idOptions)}>{currentOption.name}</span>
                                             </li>
                                         ))}
                                     </ul>

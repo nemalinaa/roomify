@@ -5,6 +5,7 @@ import Bankets from "./pages/Bankets";
 import Photo from "./pages/Photo";
 import MainPage from "./pages/MainPage"; // Главная страница
 import LoftCard from "./pages/LoftCard.jsx";
+import SearchResults from "./pages/SearchResults.jsx";
 
 const MainRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const MainRoutes = () => {
         <Route path="/dance" element={<Dance />} />
         <Route path="/photo" element={<Photo />} />
         <Route path="/card/:id" element={<LoftCard />} />
+        <Route path="/results" element={<SearchResults />}></Route>
       </Routes>
     </div>
   );
