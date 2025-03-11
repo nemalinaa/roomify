@@ -53,7 +53,7 @@ const Popular = () => {
         if (popularslist.length > 0) {
             const interval = setInterval(() => {
                 setCurrentIndex((prevIndex) => (prevIndex + 1) % popularslist.length);
-            }, 5000); // Каждые 5 секунд
+            }, 4000); // Каждые 4 секунд
 
             return () => clearInterval(interval); // Очистка таймера при размонтировании
         }
@@ -84,7 +84,8 @@ const Popular = () => {
     return (
         <div className="allPopular">
             <div className="container_slideShow">
-                <img className="image_slideShow" alt="" src={SlideShow1} />
+                <img className="image_slideShow" alt="" src={ `../../images/Rooms${currentElement?.images?.[0]?.path}`
+                         || SlideShow1} />
                 <div className="background-shadow">
                     <div className="all-text">
                         <div className="name-text">

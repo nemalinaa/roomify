@@ -120,19 +120,68 @@ app.get('/questions', (req, res) => {
 })
 
 
+// app.get('/rooms/:id', (req, res) => {
+//     const roomId = req.params.id;
+//     const query = `SELECT *,rooms.name AS name, thismetro.nameMetro AS metro, thistype.name AS type
+//     FROM rooms
+//     INNER JOIN metro as thismetro ON thismetro.idMetro = rooms.metro
+//     INNER JOIN types as thistype ON thistype.idTypes = rooms.type
+//     WHERE rooms.id = ?`;
+//     db.query(query, [roomId], (err, results) => {
+//         if (err) {
+//             console.error(err);
+//             return res.status(500).json({ error: 'Database error', details: err.message });
+//         }
+//         res.json(results);
+//     });
+// });
+
+
+//объединен запрос на получение всех данных о room и + массив изображений
 app.get('/rooms/:id', (req, res) => {
     const roomId = req.params.id;
-    const query = `SELECT *,rooms.name AS name, thismetro.nameMetro AS metro, thistype.name AS type
-    FROM rooms
-    INNER JOIN metro as thismetro ON thismetro.idMetro = rooms.metro
-    INNER JOIN types as thistype ON thistype.idTypes = rooms.type
-    WHERE rooms.id = ?`;
-    db.query(query, [roomId], (err, results) => {
+    
+    // Запрос данных помещения
+    const roomQuery = `
+        SELECT 
+            rooms.*,
+            thismetro.nameMetro AS metro,
+            thistype.name AS type
+        FROM 
+            rooms
+        INNER JOIN 
+            metro AS thismetro ON thismetro.idMetro = rooms.metro
+        INNER JOIN 
+            types AS thistype ON thistype.idTypes = rooms.type
+        WHERE 
+            rooms.id = ?
+    `;
+
+    db.query(roomQuery, [roomId], (err, roomResults) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Database error', details: err.message });
         }
-        res.json(results);
+
+        if (roomResults.length === 0) {
+            return res.status(404).json({ error: 'Помещение не найдено' });
+        }
+
+        const roomData = roomResults[0];
+
+        // Запрос изображений для помещения
+        const imagesQuery = 'SELECT idImages, filename, path FROM images WHERE rooms_id = ?';
+        db.query(imagesQuery, [roomId], (err, imagesResults) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ error: 'Ошибка при получении изображений', details: err.message });
+            }
+
+            // Добавляем изображения в объект помещения
+            roomData.images = imagesResults;
+
+            res.json(roomData);
+        });
     });
 });
 
@@ -169,11 +218,89 @@ app.get('/lofts-with-options/:id', (req, res) => {
 });
 
 
+// app.get('/popular', (req, res) => {
+//     db.query('SELECT *,thismetro.nameMetro AS metro FROM rooms LEFT JOIN metro as thismetro ON thismetro.idMetro = rooms.metro WHERE isPopular="1"', (err, results) => {
+//         if (err) {
+//             return res.status(500).json({ error: err.message });
+//         }
+//         res.json(results);
+//     });
+// });
+
 app.get('/popular', (req, res) => {
-    db.query('SELECT *,thismetro.nameMetro AS metro FROM rooms LEFT JOIN metro as thismetro ON thismetro.idMetro = rooms.metro WHERE isPopular="1"', (err, results) => {
+    // Сначала получаем популярные помещения
+    db.query(`
+        SELECT 
+            rooms.id,
+            rooms.name,
+            rooms.priceWeekdays,
+            rooms.square,
+            rooms.capacity,
+            rooms.description,
+            rooms.isPopular,
+            thismetro.nameMetro AS metro,
+            thistype.name AS type
+        FROM 
+            rooms
+        INNER JOIN 
+            metro AS thismetro ON thismetro.idMetro = rooms.metro
+        INNER JOIN 
+            types AS thistype ON thistype.idTypes = rooms.type
+        WHERE 
+            rooms.isPopular = 1
+    `, (err, rooms) => {
+        if (err) return res.status(500).json({ error: err.message });
+
+        // Получаем все room_id популярных помещений
+        const roomIds = rooms.map(room => room.id);
+
+        // Получаем все изображения для этих помещений
+        db.query(`
+            SELECT 
+                rooms_id,
+                idImages,
+                filename,
+                path
+            FROM 
+                images
+            WHERE 
+                rooms_id IN (?)
+        `, [roomIds], (err, images) => {
+            if (err) return res.status(500).json({ error: err.message });
+
+            // Группируем изображения по room_id
+            const imagesByRoom = images.reduce((acc, image) => {
+                acc[image.rooms_id] = acc[image.rooms_id] || [];
+                acc[image.rooms_id].push(image);
+                return acc;
+            }, {});
+
+            // Добавляем изображения к каждому помещению
+            const roomsWithImages = rooms.map(room => ({
+                ...room,
+                images: imagesByRoom[room.id] || []
+            }));
+
+            res.json(roomsWithImages);
+        });
+    });
+});
+
+
+//получение изоюражений
+app.get('/images/:id', (req, res)=>{
+    const roomId = req.params.id; // Получаем ID помещения из URL
+
+    // SQL-запрос с использованием параметризованного запроса для безопасности
+    const query = `SELECT idImages, filename, path FROM images WHERE rooms_id = ?`;
+    
+    db.query(query, [roomId], (err, results) => {
         if (err) {
-            return res.status(500).json({ error: err.message });
+            console.error('Ошибка при получении изображений:', err);
+            return res.status(500).json({ error: 'Ошибка базы данных', details: err.message });
         }
+        
+        // Возвращаем результат в формате JSON
         res.json(results);
     });
 })
