@@ -39,6 +39,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+
+}
+
+.loftsListElementImage img {
+    width: 420px;
+    height: 306px;
+    object-fit: cover;
+    border-radius: 32px;
 }
 
 .loftsListElementText {

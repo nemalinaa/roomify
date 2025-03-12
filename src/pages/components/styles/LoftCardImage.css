@@ -14,6 +14,7 @@
 .loftCardImage img {
     height: 706px;
     width: 1440px;
+    object-fit: cover;
 }
 
 .loftCardContainerDescription {

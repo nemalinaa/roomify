@@ -1,6 +1,6 @@
-import { React, useEffect, useState } from "react";
-import { Link } from "react-router";
-import imageAmbra from "../images/Lofts/loftsImage/imageAmbra.svg";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import SlideShow1 from '../images/SlideShow/SlideShow1.svg';
 
 const GetRooms = ({ type, title }) => {
     console.log(type)
@@ -12,7 +12,7 @@ const GetRooms = ({ type, title }) => {
         const fetchData = async () => {
 
             try {
-                const response = await fetch(`http://localhost:3002/${type}`);
+                const response = await fetch(`http://localhost:3002/${type}/`);
                 if (!response.ok) {
                     throw new Error(`Ошибка HTTP! Статус: ${response.status}`);
                 }
@@ -33,7 +33,11 @@ const GetRooms = ({ type, title }) => {
     }, [type]);
 
     if (err) {
-        return <div>Произошла ошибка: {err}</div>; // Отображаем ошибку, если она есть
+        return <div>Произошла ошибка: {err.error || err.message || JSON.stringify(err)}</div>;
+    }
+
+    if (!roomsList || roomsList.length === 0) {
+        return <div>Загрузка...</div>;
     }
 
     console.log(roomsList);
@@ -46,7 +50,7 @@ const GetRooms = ({ type, title }) => {
                 < Link className="link-card" to={`/card/${room.id}`}>
                     <div className="loftsListElement">
                         <div className="loftsListElementImage">
-                            <img src={imageAmbra} />
+                            <img src={room?.images?.[0]?.absolutePath || SlideShow1} alt={room.name} />
                         </div>
                         <div className="loftsListElementText">
                             <div className="loftsListElementName">{title} "{room.name}"</div>

@@ -11,6 +11,7 @@
 }
 
 .image_slideShow {
+    object-fit: cover;
     width: 1440px;
     /* либо 1300 как в фигме и тогда нужно везде поменять на 1300 */
     height: 359px;

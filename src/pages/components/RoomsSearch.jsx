@@ -25,7 +25,7 @@ const RoomsSearch = () => {
             }
         };
         fetchDataMetro();
-    })
+    }, [])
     return (
         <div className="loftsSearchAll">
             <div className="loftsSearchContainer">
