@@ -581,36 +581,165 @@ app.get('/images/:id', (req, res) => {
 
 
  
-app.post('/save-search', (req, res) => {
-    try {
-        const { typesList, metroList, optionsList, mincost, maxcost, minsquare, maxsquare, capacity } = req.body;
+// app.post('/save-search', (req, res) => {
+//     try {
+//         const { typesList, metroList, optionsList, mincost, maxcost, minsquare, maxsquare, capacity } = req.body;
 
-        //Проверяем, что все параметры существуют
-        if (!typesList || !metroList || !optionsList) {
-            return res.status(400).json({ error: 'Invalid or missing search data' });
-        }
+//         //Проверяем, что все параметры существуют
+//         if (!typesList || !metroList || !optionsList) {
+//             return res.status(400).json({ error: 'Invalid or missing search data' });
+//         }
 
-        // Сохраняем данные
-        currentSearch = {
-            data: {
-                typesList: typesList || [],
-                metroList: metroList || [],
-                optionsList: optionsList || [],
-                mincost: parseFloat(mincost) || 0,
-                maxcost: parseFloat(maxcost) || 100000,
-                minsquare: parseFloat(minsquare) || 0,
-                maxsquare: parseFloat(maxsquare) || 100000,
-                capacity: parseInt(capacity) || 0
-            }
-        };
+//         // Сохраняем данные
+//         currentSearch = {
+//             data: {
+//                 typesList: typesList || [],
+//                 metroList: metroList || [],
+//                 optionsList: optionsList || [],
+//                 mincost: parseFloat(mincost) || 0,
+//                 maxcost: parseFloat(maxcost) || 100000,
+//                 minsquare: parseFloat(minsquare) || 0,
+//                 maxsquare: parseFloat(maxsquare) || 100000,
+//                 capacity: parseInt(capacity) || 0
+//             }
+//         };
         
-        console.log('Сохранены данные поиска:', currentSearch);
-        res.json({ currentSearch, success: true, message: 'Данные поиска сохранены' });
-    } catch (error) {
-        console.error('Ошибка при сохранении данных:', error);
-        res.status(500).json({ error: 'Internal server error', details: error.message });
-    }
-});
+//         console.log('Сохранены данные поиска:', currentSearch);
+//         res.json({ currentSearch, success: true, message: 'Данные поиска сохранены' });
+//     } catch (error) {
+//         console.error('Ошибка при сохранении данных:', error);
+//         res.status(500).json({ error: 'Internal server error', details: error.message });
+//     }
+// });
+// 'это норм'
+
+
+//полседний варик от чатгпт
+// app.post('/save-search', async (req, res) => {
+//     const { typesList, metroList, optionsList, mincost, maxcost, minsquare, maxsquare, capacity } = req.body;
+    
+//     // Сохраняем параметры в БД для текущего пользователя
+//     await db.execute(
+//         'INSERT INTO saved_searches (types, metro, options, mincost, maxcost, minsquare, maxsquare, capacity) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+//         [JSON.stringify(typesList), JSON.stringify(metroList), JSON.stringify(optionsList), mincost, maxcost, minsquare, maxsquare, capacity]
+//     );
+    
+//     res.json({ success: true });
+// });
+// app.get('/search', async (req, res) => {
+//     try {
+//         // Получаем сохраненные параметры для пользователя
+//         const [savedSearches] = await db.execute(
+//             'SELECT * FROM saved_searches WHERE id = 1'
+//             // [req.user.id]
+//         );
+        
+//         if (!savedSearches.length) {
+//             return res.status(400).json({ error: 'No saved search found' });
+//         }
+
+//         const { types, metro, options, min_cost, max_cost, min_square, max_square, capacity } = savedSearches[0];
+        
+//         // Преобразуем строки JSON в массивы
+//         const typesList = JSON.parse(types);
+//         const metroList = JSON.parse(metro);
+//         const optionsList = JSON.parse(options);
+
+//         // Далее используйте эти параметры для формирования SQL-запроса (как в вашем коде)
+        
+//         if (!Array.isArray(typesList) || !Array.isArray(metroList) || !Array.isArray(optionsList)) {
+//             return res.status(400).json({ error: 'Invalid data types in search parameters' });
+//         }
+
+//         const conditions = [];
+//         const params = [];
+
+//         // Фильтрация по типам помещений
+//         if (typesList.length > 0) {
+//             conditions.push('rooms.type IN (?)');
+//             params.push(typesList);
+//         }
+
+//         // Фильтрация по станциям метро
+//         if (metroList.length > 0) {
+//             conditions.push('rooms.metro IN (?)');
+//             params.push(metroList);
+//         }
+
+//         // Фильтрация по опциям
+//         if (optionsList.length > 0) {
+//             conditions.push(`
+//                 EXISTS (
+//                     SELECT 1
+//                     FROM rooms_options ro
+//                     WHERE ro.rooms_id = rooms.id
+//                     AND ro.options_id IN (?)
+//                     GROUP BY ro.rooms_id
+//                     HAVING COUNT(DISTINCT ro.options_id) = ?
+//                 )
+//             `);
+//             params.push(optionsList, optionsList.length);
+//         }
+
+//         // Фильтрация по цене, площади и вместимости
+//         conditions.push('rooms.priceWeekdays BETWEEN ? AND ?');
+//         params.push(mincost, maxcost);
+
+//         conditions.push('rooms.square BETWEEN ? AND ?');
+//         params.push(minsquare, maxsquare);
+
+//         conditions.push('rooms.capacity >= ?');
+//         params.push(capacity);
+
+//         // Формируем SQL-запрос
+//         const query = `
+//             SELECT 
+//                 rooms.*,
+//                 GROUP_CONCAT(DISTINCT options.name) AS options,
+//                 metro.nameMetro AS metro_name,
+//                 types.name AS type_name
+//             FROM rooms
+//             LEFT JOIN rooms_options ON rooms.id = rooms_options.rooms_id
+//             LEFT JOIN options ON rooms_options.options_id = options.idOptions
+//             LEFT JOIN metro ON rooms.metro = metro.idMetro
+//             LEFT JOIN types ON rooms.type = types.idTypes
+//             ${conditions.length ? 'WHERE ' + conditions.join(' AND ') : ''}
+//             GROUP BY rooms.id
+//             HAVING COUNT(DISTINCT options.idOptions) >= ?
+//         `;
+
+//         params.push(optionsList.length || 0);
+
+//         // Выполняем запрос
+//         console.log('Params before flat:', params);
+//         if (!Array.isArray(params)) {
+//             return res.status(500).json({ error: 'Invalid params structure' });
+//         }
+//         const flattenedParams = params.flat();
+//         console.log('Flattened params:', flattenedParams);
+
+//         const dbResult = await db.execute(query, flattenedParams);
+
+//         // Проверяем структуру результата
+//         if (!Array.isArray(dbResult) || dbResult.length < 1) {
+//             console.error('Unexpected result from db.execute:', dbResult);
+//             return res.status(500).json({ error: 'Database query did not return an array' });
+//         }
+
+//         const [results] = dbResult;
+
+//         // Если результат пустой, возвращаем пустой массив
+//         if (!Array.isArray(results)) {
+//             return res.json([]);
+//         }
+
+//         res.json(results);
+//     } catch (error) {
+//         console.error('Database error:', error.message);
+//         res.status(500).json({ error: 'Internal server error', details: error.message });
+//     }
+// });
+
 
 // app.get('/search', async (req, res) => {
 //     try {
