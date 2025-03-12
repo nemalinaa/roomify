@@ -276,6 +276,7 @@ app.get('/questions', (req, res) => {
 
 //объединен запрос на получение всех данных о room и + массив изображений
 app.get('/rooms/:id', (req, res) => {
+    const baseUrl = "http://localhost:3002";
     const roomId = req.params.id;
 
     // Запрос данных помещения
@@ -283,7 +284,8 @@ app.get('/rooms/:id', (req, res) => {
         SELECT 
             rooms.*,
             thismetro.nameMetro AS metro,
-            thistype.name AS type
+            thistype.name AS type,
+            thistype.idTypes AS idTypes
         FROM 
             rooms
         INNER JOIN 
@@ -296,7 +298,7 @@ app.get('/rooms/:id', (req, res) => {
 
     db.query(roomQuery, [roomId], (err, roomResults) => {
         if (err) {
-            console.error(err);
+            console.error(`Ошибка при получении данных помещения ID=${roomId}:`, err);
             return res.status(500).json({ error: 'Database error', details: err.message });
         }
 
@@ -306,18 +308,33 @@ app.get('/rooms/:id', (req, res) => {
 
         const roomData = roomResults[0];
 
-        // Запрос изображений для помещения
-        const imagesQuery = 'SELECT idImages, filename, path FROM images WHERE rooms_id = ?';
-        db.query(imagesQuery, [roomId], (err, imagesResults) => {
+        // Получаем все изображения для помещения
+        db.query(`
+            SELECT 
+                idImages,
+                filename,
+                path
+            FROM 
+                images
+            WHERE 
+                rooms_id = ?
+        `, [roomData.id], (err, images) => {
             if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Ошибка при получении изображений', details: err.message });
+                console.error(`Ошибка при получении изображений для помещения ID=${roomId}:`, err);
+                return res.status(500).json({ error: 'Database error', details: err.message });
             }
 
-            // Добавляем изображения в объект помещения
-            roomData.images = imagesResults;
+            // Преобразуем пути к изображениям в абсолютные
+            const imagesWithAbsolutePaths = images.map(image => ({
+                ...image,
+                absolutePath: `${baseUrl}${image.path.startsWith('/') ? image.path : '/' + image.path}`
+            }));
 
-            res.json(roomData);
+            // Возвращаем данные с изображениями
+            res.json({
+                ...roomData,
+                images: imagesWithAbsolutePaths
+            });
         });
     });
 });

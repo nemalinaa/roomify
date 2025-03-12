@@ -9,12 +9,38 @@
 .loftCardContainerImage {
     width: 1440px;
     margin: auto;
+    position: relative;
+    height: 706px;
 }
 
 .loftCardImage img {
-    height: 706px;
-    width: 1440px;
+    height: 100%;
+    width: 100%;
     object-fit: cover;
+    transition: opacity 0.5s ease-in-out;
+    position: absolute;
+}
+
+.imageControls {
+    height: 706px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.imageControls button {
+    opacity: 0;
+    height: 706px;
+    width: 50%;
+    position: relative;
+}
+
+.imageControls button:hover {
+    cursor: pointer;
+    width: 30%;
+    opacity: 0.15;
+    border: none;
 }
 
 .loftCardContainerDescription {
