@@ -62,6 +62,7 @@ const LoftCardImage = () => {
 
     console.log(title);
     console.log(room.id);
+    console.log(room.images.path);
 
 
 

@@ -3,6 +3,7 @@ const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { data } = require('react-router');
+const path = require('path');
 
 const app = express();
 const port = 3002;
@@ -140,7 +141,7 @@ app.get('/questions', (req, res) => {
 //объединен запрос на получение всех данных о room и + массив изображений
 app.get('/rooms/:id', (req, res) => {
     const roomId = req.params.id;
-    
+
     // Запрос данных помещения
     const roomQuery = `
         SELECT 
@@ -227,7 +228,11 @@ app.get('/lofts-with-options/:id', (req, res) => {
 //     });
 // });
 
+app.use(express.static(path.join(__dirname, 'images')));
+
 app.get('/popular', (req, res) => {
+    const baseUrl = "http://localhost:3002"; // Базовый URL сервера
+
     // Сначала получаем популярные помещения
     db.query(`
         SELECT 
@@ -268,10 +273,13 @@ app.get('/popular', (req, res) => {
         `, [roomIds], (err, images) => {
             if (err) return res.status(500).json({ error: err.message });
 
-            // Группируем изображения по room_id
+            // Группируем изображения по room_id и преобразуем пути в абсолютные
             const imagesByRoom = images.reduce((acc, image) => {
                 acc[image.rooms_id] = acc[image.rooms_id] || [];
-                acc[image.rooms_id].push(image);
+                acc[image.rooms_id].push({
+                    ...image,
+                    absolutePath: `${baseUrl}/${image.path}` // Префиксирование пути
+                });
                 return acc;
             }, {});
 
@@ -281,25 +289,25 @@ app.get('/popular', (req, res) => {
                 images: imagesByRoom[room.id] || []
             }));
 
-            res.json(roomsWithImages);
+            res.json(roomsWithImages); // Возвращаем данные с абсолютными путями
         });
     });
 });
 
 
 //получение изоюражений
-app.get('/images/:id', (req, res)=>{
+app.get('/images/:id', (req, res) => {
     const roomId = req.params.id; // Получаем ID помещения из URL
 
     // SQL-запрос с использованием параметризованного запроса для безопасности
     const query = `SELECT idImages, filename, path FROM images WHERE rooms_id = ?`;
-    
+
     db.query(query, [roomId], (err, results) => {
         if (err) {
             console.error('Ошибка при получении изображений:', err);
             return res.status(500).json({ error: 'Ошибка базы данных', details: err.message });
         }
-        
+
         // Возвращаем результат в формате JSON
         res.json(results);
     });

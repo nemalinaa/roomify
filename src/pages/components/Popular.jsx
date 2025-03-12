@@ -1,4 +1,4 @@
-import SlideShow1 from "../../images/Rooms/Lofts/castle/3.webp";
+import SlideShow1 from "../../images/SlideShow/SlideShow1.svg";
 import house from '../../images/Popular/popularhome.svg';
 import metrs from '../../images/Popular/metrs.svg';
 import people from '../../images/Popular/people.svg';
@@ -12,6 +12,9 @@ const Popular = () => {
     const [popularslist, setPopularslist] = useState([]);
     const [title, setTitle] = useState('');
     const [currentElement, setCurrentElement] = useState(null);
+
+
+
 
     // Функция для определения типа помещения
     function CheckTitle(type) {
@@ -84,8 +87,8 @@ const Popular = () => {
     return (
         <div className="allPopular">
             <div className="container_slideShow">
-                <img className="image_slideShow" alt="" src={ `../../images/Rooms${currentElement?.images?.[0]?.path}`
-                         || SlideShow1} />
+                <img className="image_slideShow" alt="" src={`${currentElement?.images?.[0]?.absolutePath}`
+                    || SlideShow1} />
                 <div className="background-shadow">
                     <div className="all-text">
                         <div className="name-text">
