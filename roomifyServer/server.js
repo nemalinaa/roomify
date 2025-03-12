@@ -581,50 +581,80 @@ app.get('/images/:id', (req, res) => {
 
 
  
-// app.post('/save-search', (req, res) => {
-//     try {
-//         const { typesList, metroList, optionsList, mincost, maxcost, minsquare, maxsquare, capacity } = req.body;
+app.post('/save-search', (req, res) => {
+    try {
+        const { typesList, metroList, optionsList, mincost, maxcost, minsquare, maxsquare, capacity } = req.body;
 
-//         //Проверяем, что все параметры существуют
-//         if (!typesList || !metroList || !optionsList) {
-//             return res.status(400).json({ error: 'Invalid or missing search data' });
-//         }
+        //Проверяем, что все параметры существуют
+        if (!typesList || !metroList || !optionsList) {
+            return res.status(400).json({ error: 'Invalid or missing search data' });
+        }
 
-//         // Сохраняем данные
-//         currentSearch = {
-//             data: {
-//                 typesList: typesList || [],
-//                 metroList: metroList || [],
-//                 optionsList: optionsList || [],
-//                 mincost: parseFloat(mincost) || 0,
-//                 maxcost: parseFloat(maxcost) || 100000,
-//                 minsquare: parseFloat(minsquare) || 0,
-//                 maxsquare: parseFloat(maxsquare) || 100000,
-//                 capacity: parseInt(capacity) || 0
-//             }
-//         };
+        // Сохраняем данные
+        currentSearch = {
+            data: {
+                typesList: typesList || [],
+                metroList: metroList || [],
+                optionsList: optionsList || [],
+                mincost: parseFloat(mincost) || 0,
+                maxcost: parseFloat(maxcost) || 100000,
+                minsquare: parseFloat(minsquare) || 0,
+                maxsquare: parseFloat(maxsquare) || 100000,
+                capacity: parseInt(capacity) || 0
+            }
+        };
         
-//         console.log('Сохранены данные поиска:', currentSearch);
-//         res.json({ currentSearch, success: true, message: 'Данные поиска сохранены' });
-//     } catch (error) {
-//         console.error('Ошибка при сохранении данных:', error);
-//         res.status(500).json({ error: 'Internal server error', details: error.message });
-//     }
-// });
-// 'это норм'
+        console.log('Сохранены данные поиска:', currentSearch);
+        res.json({ currentSearch, success: true, message: 'Данные поиска сохранены' });
+    } catch (error) {
+        console.error('Ошибка при сохранении данных:', error);
+        res.status(500).json({ error: 'Internal server error', details: error.message });
+    }
+});
+'это норм'
 
 
-//полседний варик от чатгпт
+// полседний варик от чатгпт!!
+//!!
+
+// !!!!
+
+
 // app.post('/save-search', async (req, res) => {
-//     const { typesList, metroList, optionsList, mincost, maxcost, minsquare, maxsquare, capacity } = req.body;
-    
-//     // Сохраняем параметры в БД для текущего пользователя
-//     await db.execute(
-//         'INSERT INTO saved_searches (types, metro, options, mincost, maxcost, minsquare, maxsquare, capacity) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-//         [JSON.stringify(typesList), JSON.stringify(metroList), JSON.stringify(optionsList), mincost, maxcost, minsquare, maxsquare, capacity]
-//     );
-    
-//     res.json({ success: true });
+//     try {
+//         const {
+//             id = 1,
+//             typesList = [],
+//             metroList = [],
+//             optionsList = [],
+//             mincost = 0,
+//             maxcost = 100000,
+//             minsquare = 0, // Значение по умолчанию
+//             maxsquare = 100000, // Значение по умолчанию
+//             capacity = 0
+//         } = req.body;
+
+//         // Сохранение в БД
+//         const saving = db.execute(
+//             'INSERT INTO save_searches (id, types, metro, options, mincost, maxcost, minsquare, maxsquare, capacity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+//             [
+//                 id,
+//                 JSON.stringify(typesList),
+//                 JSON.stringify(metroList),
+//                 JSON.stringify(optionsList),
+//                 mincost,
+//                 maxcost,
+//                 minsquare, // Теперь не будет undefined
+//                 maxsquare, // Теперь не будет undefined
+//                 capacity
+//             ]
+//         );
+
+//         res.json({ success: true, saving });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
 // });
 // app.get('/search', async (req, res) => {
 //     try {
@@ -638,7 +668,7 @@ app.get('/images/:id', (req, res) => {
 //             return res.status(400).json({ error: 'No saved search found' });
 //         }
 
-//         const { types, metro, options, min_cost, max_cost, min_square, max_square, capacity } = savedSearches[0];
+//         const { types, metro, options, mincost, maxcost, minsquare, maxsquare, capacity } = savedSearches[0];
         
 //         // Преобразуем строки JSON в массивы
 //         const typesList = JSON.parse(types);
@@ -827,6 +857,7 @@ app.get('/images/:id', (req, res) => {
 //     }
 // });
  
+
 // app.get('/search', async (req, res) => {
 //     try {
 //         // Проверяем наличие сохраненных данных
