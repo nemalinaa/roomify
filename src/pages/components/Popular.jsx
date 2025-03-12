@@ -19,13 +19,13 @@ const Popular = () => {
     // Функция для определения типа помещения
     function CheckTitle(type) {
         switch (type) {
-            case 1:
+            case "лофты":
                 return 'Лофт';
-            case 2:
+            case "банкетные залы":
                 return 'Банкетный зал';
-            case 3:
+            case "танцевальные залы":
                 return 'Танцевальный зал';
-            case 4:
+            case "фотостудии":
                 return 'Фотостудия';
             default:
                 return '';
@@ -73,7 +73,9 @@ const Popular = () => {
     useEffect(() => {
         if (currentElement && currentElement.type) {
             setTitle(CheckTitle(currentElement.type));
+            console.log(title)
         }
+
     }, [currentElement]);
 
     // Обработка ошибок и загрузки
@@ -92,7 +94,7 @@ const Popular = () => {
                 <div className="background-shadow">
                     <div className="all-text">
                         <div className="name-text">
-                            <div>{title} {currentElement?.name || 'Название не указано'}</div>
+                            <div>{title} "{currentElement?.name || 'Название не указано'}"</div>
                         </div>
                         <div className="other-text">
                             <div className="elements_text">
