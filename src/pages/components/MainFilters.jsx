@@ -190,7 +190,7 @@ const MainFilters = () => {
             maxsquare: maxsquare || 100000,
             capacity: capacity || 0
         };
-
+        console.log(searchData)
         try {
             const response = await fetch('http://localhost:3002/save-search', {
                 method: 'POST',

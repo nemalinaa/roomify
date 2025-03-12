@@ -73,7 +73,6 @@ const Popular = () => {
     useEffect(() => {
         if (currentElement && currentElement.type) {
             setTitle(CheckTitle(currentElement.type));
-            console.log(title)
         }
 
     }, [currentElement]);
