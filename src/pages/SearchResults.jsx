@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import SlideShow1 from '../images/SlideShow/SlideShow1.svg';
 
 const SearchResults = () => {
 
@@ -25,7 +27,29 @@ const SearchResults = () => {
     console.log(searchData)
     return (
         <div>
-            mew
+           {searchData ? searchData.map((el)=>(
+            <div className="loftsListElements">
+                < Link className="link-card" to={`/card/${el.id}`}>
+                    <div className="loftsListElement">
+                        <div className="loftsListElementImage">
+                            <img src={el?.images?.[0]?.absolutePath || SlideShow1} alt={el.name} />
+                        </div>
+                        <div className="loftsListElementText">
+                            <div className="loftsListElementName">"{el.name}"</div>
+                            <div className="loftsListElementLocation">м. {el.metro}</div>
+                            <div className="loftsListElementPeople">{el.square}м², {el.capacity} чел.</div>
+                            <div className="loftsListElementBottomText">
+                                <div className="loftsListElementPrice">от {el.priceWeekdays}р/час</div>
+                                <div className="loftsListElementRating">Нет оценок</div>
+                            </div>
+                        </div>
+                    </div>
+                </Link>
+            </div>
+           ))
+           :
+           "нет подходящих вариантов"
+           }
         </div>
     )
 };
