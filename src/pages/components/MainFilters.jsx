@@ -180,8 +180,9 @@ const MainFilters = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        let searchData = {
-            typesList: type || [], // Преобразуем массив ID в строку
+        // Убедитесь, что все переменные определены
+        const searchData = {
+            typesList: type || [], // Если type не определен, передаем []
             metroList: metro || [],
             optionsList: option || [],
             mincost: mincost || 0,
@@ -190,34 +191,28 @@ const MainFilters = () => {
             maxsquare: maxsquare || 100000,
             capacity: capacity || 0
         };
-        console.log(searchData)
+
+        console.log("Отправленные данные:", searchData);
+
         try {
             const response = await fetch('http://localhost:3002/save-search', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(searchData)
+                method: 'POST', // Используйте POST
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(searchData),
+                credentials: 'include'
             });
 
             if (!response.ok) {
-                throw new Error(`Ошибка HTTP, статус:${response.status}`);
+                throw new Error(`Ошибка HTTP: ${response.status}`);
             }
 
             const dataForm = await response.json();
-            console.log('Сервервный ответ:', dataForm);
+            console.log('Серверный ответ:', dataForm);
+            await new Promise(resolve => setTimeout(resolve, 1000));
             navigate(`/results`);
         } catch (error) {
-            console.error('Ошибка при отправке данных', error);
-        };
-
-
-
-
-        // const queryParams = qs.stringify(formData, { encode: false, arrayFormat: 'comma' });
-
-        // Переходим на страницу с результатами, передавая параметры в URL
-
+            console.error('Ошибка при отправке:', error);
+        }
     };
 
     // console.log(searchdata);

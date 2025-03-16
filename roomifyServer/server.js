@@ -4,16 +4,38 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { data } = require('react-router');
 const path = require('path');
+const session = require('express-session');
+
 
 const app = express();
 const port = 3002;
-// let currentSearch = null;
 
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+    optionsSuccessStatus: 200
+}));
 
+// 2. Настройка сессий
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 60 * 60 * 1000,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production'
+    }
+}));
 
-app.use(bodyParser.json());
+// 3. Парсер JSON (важно, чтобы данные из формы корректно попали в req.body)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// 4. Статические файлы и маршруты
 app.use(express.static(path.join(__dirname, 'images')));
-app.use(cors());
+
+
 
 const db = mysql.createConnection({
     host: 'localhost',
@@ -460,280 +482,7 @@ app.get('/images/:id', (req, res) => {
 })
 
 
-// app.get('/search', async (req, res) => {
-//     try {
-//         if (!currentSearch || !currentSearch.data) {
-//             return res.status(400).json({ error: 'No saved search data found' });
-//         }
 
-//         const { typesList, metroList, optionsList, mincost, maxcost, minsquare, maxsquare, capacity } = currentSearch.data;
-
-//         // const parsedTypesList = (typesList || '').split(',').filter(Boolean);
-//         // const parsedMetroList = (metroList || '').split(',').filter(Boolean);
-//         // const parsedOptionsList = (optionsList || '').split(',').filter(Boolean);
-
-//         let conditions = [];
-//         const params = [];
-
-//         if (typesList.length > 0) {
-//             conditions.push('rooms.type IN (?)');
-//             params.push(typesList);
-//         }
-
-//         if (metroList.length > 0) {
-//             conditions.push('rooms.metro IN (?)');
-//             params.push(metroList);
-//         }
-
-//         // if (optionsList.length > 0) {
-//         //     conditions.push('EXISTS (SELECT 1 FROM rooms_options ro WHERE ro.rooms_id = rooms.id AND ro.options_id IN (?))');
-//         //     params.push(optionsList);
-//         // }
-
-//         const queryConditions = conditions.length > 0
-//             ? `WHERE ${conditions.join(' AND ')}`
-//             : '';
-
-//         const query = `
-//             SELECT 
-//                 rooms.*,
-//                 GROUP_CONCAT(DISTINCT options.name SEPARATOR ', ') AS option_names,
-//                 metro.nameMetro AS metro,
-//                 types.name AS type_name
-//             FROM 
-//                 rooms
-//             LEFT JOIN 
-//                 rooms_options ON rooms.id = rooms_options.rooms_id
-//             LEFT JOIN 
-//                 options ON rooms_options.options_id = options.idOptions
-//             LEFT JOIN 
-//                 metro ON rooms.metro = metro.idMetro
-//             LEFT JOIN 
-//                 types ON types.idTypes = rooms.type
-//             ${queryConditions}
-//             AND rooms.priceWeekdays BETWEEN ? AND ?
-//             AND rooms.square BETWEEN ? AND ?
-//             AND rooms.capacity >= ?
-//             GROUP BY rooms.id;
-//         `;
-
-//         params.push(
-//             parseFloat(mincost) || 0,
-//             parseFloat(maxcost) || 100000,
-//             parseFloat(minsquare) || 0,
-//             parseFloat(maxsquare) || 100000,
-//             parseInt(capacity) || 0
-//         );
-
-//         const [rows] = await db.execute(query, params);
-//         res.json(rows);
-//     } catch (error) {
-//         console.error('Database error:', error.message);
-//         res.status(500).json({ error: 'Internal server error', details: error.message });
-//     }
-// });
-
-// app.post('/search-db', async (req, res) => {
-//     try {
-//         const { typesList, metroList, optionsList, mincost, maxcost, capacity } = req.body;
-
-//         // Проверяем, что все параметры существуют
-//         if (!Array.isArray(typesList) || !Array.isArray(metroList) || !Array.isArray(optionsList)) {
-//             return res.status(400).json({ error: 'Invalid or missing search data' });
-//         }
-
-//         // Подключение к базе данных (предполагается, что используется библиотека pg для PostgreSQL)
-//         const query = `
-//             SELECT DISTINCT r.id, r.name, r.capacity, r.priceWeekdays, r.priceWeekends, t.name AS typeName, m.nameMetro
-//             FROM rooms r
-//             JOIN types t ON r.type = t.idTypes
-//             JOIN metro m ON r.metro = m.idMetro
-//             JOIN rooms_options ro ON r.id = ro.room_id
-//             JOIN options o ON ro.option_id = o.idOption
-//             WHERE 
-//                 t.idTypes = ANY($1)
-//                 AND m.idMetro = ANY($2)
-//                 AND r.priceWeekdays >= $3
-//                 AND r.priceWeekends <= $4
-//                 AND r.capacity >= $5
-//                 AND o.idOption = ANY($6)
-//             GROUP BY r.id, r.name, r.capacity, r.priceWeekdays, r.priceWeekends, t.name, m.nameMetro
-//             HAVING COUNT(DISTINCT o.idOption) = $7;
-//         `;
-
-//         const optionsCount = optionsList.length;
-
-//         // Выполнение запроса
-//         const result = await db.query(query, [
-//             typesList,
-//             metroList,
-//             mincost,
-//             maxcost,
-//             capacity,
-//             optionsList,
-//             optionsCount
-//         ]);
-
-//         // Отправка результата
-//         res.json({ success: true, data: result.rows });
-//     } catch (error) {
-//         console.error('Ошибка при выполнении запроса:', error);
-//         res.status(500).json({ error: 'Internal server error', details: error.message });
-//     }
-// });
-
-
-
-//начало старого!!!!!!
-// !!!!!
-
-// app.post('/save-search', (req, res) => {
-//     try {
-//         const { typesList, metroList, optionsList, mincost, maxcost, minsquare, maxsquare, capacity } = req.body;
-
-//         //Проверяем, что все параметры существуют
-//         if (!typesList || !metroList || !optionsList) {
-//             return res.status(400).json({ error: 'Invalid or missing search data' });
-//         }
-
-//         // Сохраняем данные
-//         currentSearch = {
-//             data: {
-//                 typesList: typesList || [],
-//                 metroList: metroList || [],
-//                 optionsList: optionsList || [],
-//                 mincost: parseFloat(mincost) || 0,
-//                 maxcost: parseFloat(maxcost) || 100000,
-//                 minsquare: parseFloat(minsquare) || 0,
-//                 maxsquare: parseFloat(maxsquare) || 100000,
-//                 capacity: parseInt(capacity) || 0
-//             }
-//         };
-
-//         console.log('Сохранены данные поиска:', currentSearch);
-//         res.json({ currentSearch, success: true, message: 'Данные поиска сохранены' });
-//     } catch (error) {
-//         console.error('Ошибка при сохранении данных:', error);
-//         res.status(500).json({ error: 'Internal server error', details: error.message });
-//     }
-// });
-// 'это норм'
-
-// app.get('/search', async (req, res) => {
-//     try {
-//         // Проверяем наличие сохраненных данных
-//         if (!currentSearch?.data || typeof currentSearch.data !== 'object') {
-//             return res.status(400).json({ error: 'No saved search data found' });
-//         }
-
-//         const {
-//             typesList = [],
-//             metroList = [],
-//             optionsList = [],
-//             mincost = 0,
-//             maxcost = 100000,
-//             minsquare = 0,
-//             maxsquare = 100000,
-//             capacity = 0
-//         } = currentSearch.data;
-
-//         // Проверяем типы данных
-//         if (!Array.isArray(typesList) || !Array.isArray(metroList) || !Array.isArray(optionsList)) {
-//             return res.status(400).json({ error: 'Invalid data types in search parameters' });
-//         }
-
-//         const conditions = [];
-//         const params = [];
-
-//         // Фильтрация по типам помещений
-//         if (typesList.length > 0) {
-//             conditions.push('rooms.type IN (?)');
-//             params.push(typesList);
-//         }
-
-//         // Фильтрация по станциям метро
-//         if (metroList.length > 0) {
-//             conditions.push('rooms.metro IN (?)');
-//             params.push(metroList);
-//         }
-
-//         // Фильтрация по опциям
-//         if (optionsList.length > 0) {
-//             conditions.push(`
-//                 EXISTS (
-//                     SELECT 1
-//                     FROM rooms_options ro
-//                     WHERE ro.rooms_id = rooms.id
-//                     AND ro.options_id IN (?)
-//                     GROUP BY ro.rooms_id
-//                     HAVING COUNT(DISTINCT ro.options_id) = ?
-//                 )
-//             `);
-//             params.push(optionsList, optionsList.length);
-//         }
-
-//         // Фильтрация по цене, площади и вместимости
-//         conditions.push('rooms.priceWeekdays BETWEEN ? AND ?');
-//         params.push(mincost, maxcost);
-
-//         conditions.push('rooms.square BETWEEN ? AND ?');
-//         params.push(minsquare, maxsquare);
-
-//         conditions.push('rooms.capacity >= ?');
-//         params.push(capacity);
-
-//         // Формируем SQL-запрос
-//         const query = `
-//             SELECT 
-//                 rooms.*,
-//                 GROUP_CONCAT(DISTINCT options.name) AS options,
-//                 metro.nameMetro AS metro_name,
-//                 types.name AS type_name
-//             FROM rooms
-//             LEFT JOIN rooms_options ON rooms.id = rooms_options.rooms_id
-//             LEFT JOIN options ON rooms_options.options_id = options.idOptions
-//             LEFT JOIN metro ON rooms.metro = metro.idMetro
-//             LEFT JOIN types ON rooms.type = types.idTypes
-//             ${conditions.length ? 'WHERE ' + conditions.join(' AND ') : ''}
-//             GROUP BY rooms.id
-//             HAVING COUNT(DISTINCT options.idOptions) >= ?
-//         `;
-
-//         params.push(optionsList.length || 0);
-
-//         // Выполняем запрос
-//         console.log('Params before flat:', params);
-//         if (!Array.isArray(params)) {
-//             return res.status(500).json({ error: 'Invalid params structure' });
-//         }
-//         const flattenedParams = params.flat();
-//         console.log('Flattened params:', flattenedParams);
-
-//         const dbResult = await db.execute(query, flattenedParams);
-
-//         // Проверяем структуру результата
-//         if (!Array.isArray(dbResult) || dbResult.length < 1) {
-//             console.error('Unexpected result from db.execute:', dbResult);
-//             return res.status(500).json({ error: 'Database query did not return an array' });
-//         }
-
-//         const [results] = dbResult;
-
-//         // Если результат пустой, возвращаем пустой массив
-//         if (!Array.isArray(results)) {
-//             return res.json([]);
-//         }
-
-//         res.json(results);
-//     } catch (error) {
-//         console.error('Database error:', error.message);
-//         res.status(500).json({ error: 'Internal server error', details: error.message });
-//     }
-// });
-
-
-// !!!!!! 
-// конец старого
 
 app.get('/get-search', (req, res) => {
     if (!currentSearch) {
@@ -748,94 +497,103 @@ app.get('/get-search', (req, res) => {
 
 
 app.post('/save-search', async (req, res) => {
+    // Извлекаем данные из req.body
+    const {
+        typesList = [],
+        metroList = [],
+        optionsList = [],
+        mincost = 0,
+        maxcost = 100000,
+        minsquare = 0,
+        maxsquare = 100000,
+        capacity = 0
+    } = req.body;
+
+    // Проверяем, что данные получены корректно
+    console.log('Полученные данные:', {
+        typesList,
+        metroList,
+        optionsList,
+        mincost,
+        maxcost,
+        minsquare,
+        maxsquare,
+        capacity
+    });
+
+    // Сохраняем в сессию
+    req.session.savedSearch = {
+        typesList,
+        metroList,
+        optionsList,
+        mincost,
+        maxcost,
+        minsquare,
+        maxsquare,
+        capacity
+    };
+
     try {
-        const {
-            id = 1,
-            typesList = [],
-            metroList = [],
-            optionsList = [],
-            mincost = 0,
-            maxcost = 100000,
-            minsquare = 0, // Значение по умолчанию
-            maxsquare = 100000, // Значение по умолчанию
-            capacity = 0
-        } = req.body;
-
-        // Сохранение в БД
-        const saving = db.execute(
-            'INSERT INTO saved_searches (id, types, metro, options, mincost, maxcost, minsquare, maxsquare, capacity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [
-                id,
-                JSON.stringify(typesList),
-                JSON.stringify(metroList),
-                JSON.stringify(optionsList),
-                mincost,
-                maxcost,
-                minsquare, // Теперь не будет undefined
-                maxsquare, // Теперь не будет undefined
-                capacity
-            ]
-        );
-
-        res.json({ success: true, saving });
+        await new Promise((resolve, reject) => {
+            req.session.save((err) => {
+                if (err) return reject(err);
+                // Проверяем, что данные сохранились
+                console.log('Сохраненные данные в сессии:', req.session.savedSearch);
+                resolve();
+            });
+        });
+        res.json({ success: true });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
+        console.error('Ошибка сохранения:', error);
+        res.status(500).json({ error: 'Ошибка' });
     }
 });
+
 app.get('/search', async (req, res) => {
+    const baseUrl = "http://localhost:3002";
     try {
-        // Получаем сохраненные параметры для пользователя
-        db.query('SELECT * FROM saved_searches WHERE id = 1', (err, savedSearches) => {
-            if (err) return res.status(500).json({ error: err.message });
-            if (!Array.isArray(savedSearches) || savedSearches.length === 0) {
-                return res.status(400).json({ error: 'No saved search found' });
-            }
+        console.log('Полная сессия:', req.session);
+        console.log(req.session.savedSearch);
+        let savedSearch = req.session.savedSearch;
+        console.log('Запрос к /search. Данные из сессии:', savedSearch);
+        if (!savedSearch) {
+            return res.json(['1']); // Возвращаем пустой массив вместо ошибки
+        }
 
-            const {
-                types,
-                metro,
-                options,
-                mincost = 0,
-                maxcost = 100000,
-                minsquare = 0,
-                maxsquare = 100000,
-                capacity = 0
-            } = savedSearches[0];
+        const {
+            typesList,
+            metroList,
+            optionsList,
+            mincost = 0,
+            maxcost = 100000,
+            minsquare = 0,
+            maxsquare = 100000,
+            capacity = 0
+        } = savedSearch;
 
-            // Преобразуем строки JSON в массивы
-            let typesList, metroList, optionsList;
-            try {
-                typesList = JSON.parse(types);
-                metroList = JSON.parse(metro);
-                optionsList = JSON.parse(options);
-            } catch (parseError) {
-                return res.status(400).json({ error: 'Invalid JSON data in search parameters' });
-            }
+        // Проверяем корректность типов данных
+        if (!Array.isArray(typesList) || !Array.isArray(metroList) || !Array.isArray(optionsList)) {
+            return res.status(400).json({ error: 'Invalid data types in search parameters' });
+        }
 
-            // Проверяем корректность типов данных
-            if (!Array.isArray(typesList) || !Array.isArray(metroList) || !Array.isArray(optionsList)) {
-                return res.status(400).json({ error: 'Invalid data types in search parameters' });
-            }
+        const conditions = [];
+        const params = [];
 
-            const conditions = [];
-            const params = [];
+        // Фильтрация по типам помещений
+        if (typesList.length > 0) {
+            conditions.push('rooms.type IN (?)');
+            params.push(typesList); // Пушим массив целиком
+        }
 
-            // Фильтрация по типам помещений
-            if (typesList.length > 0) {
-                conditions.push('rooms.type IN (?)');
-                params.push(typesList); // Пушим массив целиком
-            }
+        // Фильтрация по станциям метро
+        if (metroList.length > 0) {
+            conditions.push('rooms.metro IN (?)');
+            params.push(metroList);
+        }
 
-            // Фильтрация по станциям метро
-            if (metroList.length > 0) {
-                conditions.push('rooms.metro IN (?)');
-                params.push(metroList);
-            }
-
-            // Фильтрация по опциям
-            if (optionsList.length > 0) {
-                conditions.push(`
+        // Фильтрация по опциям
+        if (optionsList.length > 0) {
+            conditions.push(`
                     EXISTS (
                         SELECT 1
                         FROM rooms_options ro
@@ -845,25 +603,25 @@ app.get('/search', async (req, res) => {
                         HAVING COUNT(DISTINCT ro.options_id) = ?
                     )
                 `);
-                params.push(optionsList); // Пушим массив опций
-                params.push(optionsList.length); // Количество опций
-            }
+            params.push(optionsList); // Пушим массив опций
+            params.push(optionsList.length); // Количество опций
+        }
 
-            // Фильтрация по цене, площади и вместимости
-            conditions.push('rooms.priceWeekdays BETWEEN ? AND ?');
-            params.push(mincost, maxcost);
+        // Фильтрация по цене, площади и вместимости
+        conditions.push('rooms.priceWeekdays BETWEEN ? AND ?');
+        params.push(mincost, maxcost);
 
-            conditions.push('rooms.square BETWEEN ? AND ?');
-            params.push(minsquare, maxsquare);
+        conditions.push('rooms.square BETWEEN ? AND ?');
+        params.push(minsquare, maxsquare);
 
-            conditions.push('rooms.capacity >= ?');
-            params.push(capacity);
+        conditions.push('rooms.capacity >= ?');
+        params.push(capacity);
 
-            // Добавляем условие для опций
-            params.push(optionsList.length || 0);
+        // Добавляем условие для опций
+        params.push(optionsList.length || 0);
 
-            // Формируем SQL-запрос
-            const query = `
+        // Формируем SQL-запрос
+        const query = `
                 SELECT 
                     rooms.*,
                     GROUP_CONCAT(DISTINCT options.name) AS options,
@@ -879,117 +637,61 @@ app.get('/search', async (req, res) => {
                 HAVING COUNT(DISTINCT options.idOptions) >= ?
             `;
 
-            // Убедимся, что params — это массив
-            if (!Array.isArray(params)) {
-                return res.status(500).json({ error: 'Invalid params structure' });
+        // Убедимся, что params — это массив
+        if (!Array.isArray(params)) {
+            return res.status(500).json({ error: 'Invalid params structure' });
+        }
+
+        // Выполняем запрос, передавая params напрямую
+        db.query(query, params, (err, rooms) => {
+            if (err) return res.status(500).json({ error: err.message });
+
+            // Если результат пустой, возвращаем пустой массив
+            if (!Array.isArray(rooms)) {
+                return res.json([]);
             }
 
-            // Выполняем запрос, передавая params напрямую
-            db.query(query, params, (err, results) => {
+            const roomIds = rooms.map(room => room.id);
+
+            // Получаем все изображения для этих помещений
+            db.query(`
+            SELECT 
+                rooms_id,
+                idImages,
+                filename,
+                path
+            FROM 
+                images
+            WHERE 
+                rooms_id IN (?)
+        `, [roomIds], (err, images) => {
                 if (err) return res.status(500).json({ error: err.message });
 
-                // Если результат пустой, возвращаем пустой массив
-                if (!Array.isArray(results)) {
-                    return res.json([]);
-                }
-                console.log('Query:', query);
-                console.log('Params:', params);
+                // Группируем изображения по room_id и преобразуем пути в абсолютные
+                const imagesByRoom = images.reduce((acc, image) => {
+                    acc[image.rooms_id] = acc[image.rooms_id] || [];
+                    acc[image.rooms_id].push({
+                        ...image,
+                        absolutePath: `${baseUrl}${image.path}` // Префиксирование пути
+                    });
+                    return acc;
+                }, {});
 
-                res.json(results);
+                // Добавляем изображения к каждому помещению
+                const roomsWithImages = rooms.map(room => ({
+                    ...room,
+                    images: imagesByRoom[room.id] || []
+                }));
+
+                res.json(roomsWithImages); // Возвращаем данные с абсолютными путями
             });
         });
     } catch (error) {
-        console.error('Database error:', error.message);
-        res.status(500).json({ error: 'Internal server error', details: error.message });
+        console.error('Ошибка:', error);
+        res.status(500).json({ error: 'Ошибка сервера' });
     }
 });
 
-
-// app.get('/search', async (req, res) => {
-//     try {
-//         // Проверяем наличие сохраненных данных
-//         if (!currentSearch?.data) {
-//             return res.status(400).json({ error: 'No saved search data found' });
-//         }
-
-//         const {
-//             typesList = [],
-//             metroList = [],
-//             optionsList = [],
-//             mincost = 0,
-//             maxcost = 100000,
-//             minsquare = 0,
-//             maxsquare = 100000,
-//             capacity = 0
-//         } = currentSearch.data;
-
-//         const conditions = [];
-//         const params = [];
-
-//         // Фильтрация по типам помещений
-//         if (typesList.length > 0) {
-//             conditions.push('rooms.type IN (?)');
-//             params.push(typesList);
-//         }
-
-//         // Фильтрация по станциям метро
-//         if (metroList.length > 0) {
-//             conditions.push('rooms.metro IN (?)');
-//             params.push(metroList);
-//         }
-
-//         // Фильтрация по опциям (все выбранные опции должны присутствовать)
-//         if (optionsList.length > 0) {
-//             conditions.push(`
-//                 EXISTS (
-//                     SELECT 1
-//                     FROM rooms_options ro
-//                     WHERE ro.rooms_id = rooms.id
-//                     AND ro.options_id IN (?)
-//                     GROUP BY ro.rooms_id
-//                     HAVING COUNT(DISTINCT ro.options_id) = ?
-//                 )
-//             `);
-//             params.push(optionsList, optionsList.length);
-//         }
-
-//         // Фильтрация по цене, площади и вместимости
-//         conditions.push('rooms.priceWeekdays BETWEEN ? AND ?');
-//         params.push(mincost, maxcost);
-
-//         conditions.push('rooms.square BETWEEN ? AND ?');
-//         params.push(minsquare, maxsquare);
-
-//         conditions.push('rooms.capacity >= ?');
-//         params.push(capacity);
-
-//         // Формируем SQL-запрос
-//         const query = `
-//             SELECT 
-//                 rooms.*,
-//                 GROUP_CONCAT(DISTINCT options.name) AS options,
-//                 metro.nameMetro AS metro_name,
-//                 types.name AS type_name
-//             FROM rooms
-//             LEFT JOIN rooms_options ON rooms.id = rooms_options.rooms_id
-//             LEFT JOIN options ON rooms_options.options_id = options.idOptions
-//             LEFT JOIN metro ON rooms.metro = metro.idMetro
-//             LEFT JOIN types ON rooms.type = types.idTypes
-//             ${conditions.length ? 'WHERE ' + conditions.join(' AND ') : ''}
-//             GROUP BY rooms.id
-//             HAVING COUNT(DISTINCT options.idOptions) >= ?
-//         `;
-
-//         params.push(optionsList.length || 0);
-
-//         // Выполняем запрос
-//         const [results] = await db.execute(query, params.flat());
-//         res.json(results);
-//     } catch (error) {
-//         console.error('Database error:', error.message);
-//         res.status(500).json({ error: 'Internal server error', details: error.message });
-//     }
-// });
 
 app.listen(port, () => {
     console.log(`Сервер запущен на http://localhost:${port}`);

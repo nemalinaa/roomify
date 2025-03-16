@@ -1,0 +1,102 @@
+.loftsAll {
+    height: 100px;
+    margin-top: 60px;
+}
+
+.loftsContainer {
+    width: 1440px;
+    margin: auto;
+}
+
+.loftsMainText {
+    font-size: 80px;
+    font-weight: 700;
+}
+
+
+.loftsListAll {
+    height: 959px;
+    margin-top: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 150px;
+}
+
+.loftsListContainer {
+    width: 1440px;
+    margin: auto;
+}
+
+.loftsListElements {
+    display: grid;
+    grid-row-gap: 10px;
+    grid-template-columns: repeat(3, 450px);
+    grid-template-rows: repeat(2, 490px);
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+
+}
+
+.loftsListElement {
+    background-color: rgba(166, 56, 5, 0.07);
+    border-radius: 30px;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /* margin-bottom: 30px; */
+    /* position: relative; */
+    /* flex-direction: column; */
+    /* align-items: safe; */
+}
+
+.loftsListElementImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.loftsListElementImage img {
+    width: 420px;
+    height: 306px;
+    object-fit: cover;
+    border-radius: 32px;
+}
+
+.loftsListElementText {
+    padding-left: 20px;
+}
+
+.loftsListElementName,
+.loftsListElementPrice {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 10px 0;
+}
+
+.loftsListElementLocation,
+.loftsListElementPeople {
+    font-size: 15px;
+    font-weight: 300;
+}
+
+.loftsListElementBottomText {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.loftsListElementRating {
+    position: absolute;
+    font-size: 15px;
+    font-weight: 300;
+    right: 20px;
+}
+
+.link-card {
+    text-decoration: none;
+    color: black;
+}
