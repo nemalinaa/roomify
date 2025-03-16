@@ -91,8 +91,8 @@ const LoftCardImage = () => {
                 </div>
                 {/* Кнопки для переключения изображений */}
                 <div className="imageControls">
-                    <button onClick={handlePrevImage} disabled={room.images.length <= 1}/>
-                    <button onClick={handleNextImage} disabled={room.images.length <= 1}/>
+                    <button onClick={handlePrevImage} disabled={room.images.length <= 1} />
+                    <button onClick={handleNextImage} disabled={room.images.length <= 1} />
                 </div>
             </div>
             <div className="loftCardContainerDescription">
@@ -123,10 +123,10 @@ const LoftCardImage = () => {
                         <span className="loftCardCostDescription">от</span> {room.priceWeekdays || 'Цена не указана'} р/ч
                     </h3>
                     <div className="loftCardCostButtons">
-                        <button className="loftCardCostButton call">Позвонить</button>
-                        <button className="loftCardCostButton write">
+                        <a className="loftCardCostButton call" href="tel:+79508700100">Позвонить</a>
+                        <a href="https://wa.me/79508700100" className="loftCardCostButton write">
                             <img src={whatsapp} alt="" />Написать
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

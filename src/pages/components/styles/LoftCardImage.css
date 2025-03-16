@@ -38,8 +38,6 @@
 
 .imageControls button:hover {
     cursor: pointer;
-    width: 30%;
-    opacity: 0.15;
     border: none;
 }
 
@@ -138,17 +136,24 @@
     border-radius: 9px;
     color: white;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 400;
     border: none;
     box-shadow: none;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
+    text-decoration: none;
+}
+
+.loftCardCostButton:hover {
+    cursor: pointer;
 }
 
 .call {
     background-color: #801525;
+    color: white;
+    text-decoration: none;
 }
 
 .write {
