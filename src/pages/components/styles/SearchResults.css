@@ -15,7 +15,7 @@
 
 
 .loftsListAll {
-    height: 959px;
+    height: max-content;
     margin-top: 60px;
     display: flex;
     align-items: center;
@@ -30,9 +30,9 @@
 
 .loftsListElements {
     display: grid;
-    grid-row-gap: 10px;
+    grid-row-gap: 30px;
     grid-template-columns: repeat(3, 450px);
-    grid-template-rows: repeat(2, 490px);
+    /* grid-template-rows: repeat(2, 490px); */
     justify-content: space-between;
     width: 100%;
     align-items: center;
@@ -42,6 +42,7 @@
 .loftsListElement {
     background-color: rgba(166, 56, 5, 0.07);
     border-radius: 30px;
+    height: 440px;
     width: 100%;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -99,4 +100,14 @@
 .link-card {
     text-decoration: none;
     color: black;
+}
+
+.loftsNoElement{
+    position: absolute;
+    top: 300px;
+    margin-left: 6px;
+    font-size: 30px;
+    color: #801525;
+    font-style: italic;
+    font-weight: 500;
 }

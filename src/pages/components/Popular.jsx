@@ -4,6 +4,8 @@ import metrs from '../../images/Popular/metrs.svg';
 import people from '../../images/Popular/people.svg';
 import './styles/Popular.css';
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 
 const Popular = () => {
     const [data, setData] = useState(null);
@@ -86,7 +88,9 @@ const Popular = () => {
     }
 
     return (
-        <div className="allPopular">
+        
+            <Link className="link-popular" to={`/card/${currentElement?.id}`}>
+<div className="allPopular">
             <div className="container_slideShow">
                 <img className="image_slideShow" alt="" src={`${currentElement?.images?.[0]?.absolutePath}`
                     || SlideShow1} />
@@ -118,6 +122,8 @@ const Popular = () => {
                 </div>
             </div>
         </div>
+            </Link>
+
     );
 };
 

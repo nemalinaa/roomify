@@ -30,7 +30,21 @@ const SearchResults = () => {
 
         fetchSearchData();
     }, []);
-    console.log(rooms);
+
+    function CheckTitle(type_name) {
+        switch (type_name) {
+            case 'лофты':
+                return 'Лофт';
+            case 'банкетные залы':
+                return 'Банкетный зал';
+            case 'танцевальные залы':
+                return 'Танцевальный зал';
+            case 'фотостудии':
+                return 'Фотостудия';
+        }
+    }
+
+    console.log("rooms", rooms);
     return (
 
         <div>
@@ -42,15 +56,15 @@ const SearchResults = () => {
             <div className="loftsListAll">
                 <div className="loftsListContainer">
                     <div className="loftsListElements">
-                        {rooms ? rooms.map((el) => (
+                        {rooms.length>0 ? rooms.map((el) => (
                             <Link className="link-card" to={`/card/${el.id}`}>
                                 <div className="loftsListElement">
                                     <div className="loftsListElementImage">
                                         <img src={el?.images?.[0]?.absolutePath || SlideShow1} alt={el.name} />
                                     </div>
                                     <div className="loftsListElementText">
-                                        <div className="loftsListElementName">"{el.name}"</div>
-                                        <div className="loftsListElementLocation">м. {el.metro}</div>
+                                        <div className="loftsListElementName">{CheckTitle(el.type_name)} "{el.name}"</div>
+                                        <div className="loftsListElementLocation">м. {el.metro_name}</div>
                                         <div className="loftsListElementPeople">{el.square}м², {el.capacity} чел.</div>
                                         <div className="loftsListElementBottomText">
                                             <div className="loftsListElementPrice">от {el.priceWeekdays}р/час</div>
@@ -62,7 +76,10 @@ const SearchResults = () => {
 
                         ))
                             :
-                            "нет подходящих вариантов"
+                            <div className="loftsNoElement">
+                            нет подходящих вариантов
+                            </div>
+                            
                         }
                     </div>
                 </div>
