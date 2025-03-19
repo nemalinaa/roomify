@@ -1,0 +1,71 @@
+.Admin {
+    height: 100vh;
+    width: 1440px;
+    margin-left: 25px;
+}
+
+.mainAdmin {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.mainAdminHeader {
+    font-weight: 500;
+    font-size: 75px;
+    margin-bottom: 40px;
+}
+
+.addRoomButton {
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 30px;
+    font-size: 20px;
+    padding: 15px 30px;
+    content: normal;
+    font-weight: 600;
+    width: max-content;
+    background-color: #00554A;
+    margin-bottom: 10px;
+}
+
+.adminlistHeader {
+    font-size: 30px;
+    font-weight: 500;
+    padding-top: 40px;
+    padding-bottom: 10px;
+
+}
+
+.adminlistbutton {
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    padding: 10px 20px;
+    content: normal;
+    font-weight: 500;
+    width: max-content;
+}
+
+.edit {
+    background-color: #00554A;
+}
+
+.delete {
+    background-color: #801525;
+}
+
+.adminlist {
+    border-collapse: collapse;
+    width: 100px;
+}
+
+.adminlist td {
+    width: 150px;
+    padding: 5px 0;
+}
+
+.adminlistElementName {
+    font-weight: 600;
+}

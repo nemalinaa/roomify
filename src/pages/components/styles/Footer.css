@@ -57,3 +57,11 @@
     margin-top: 50px;
     color: white;
 }
+
+.admin {
+    position: absolute;
+    text-align: left;
+    font-weight: 400;
+    margin-top: 250px;
+    color: white;
+}

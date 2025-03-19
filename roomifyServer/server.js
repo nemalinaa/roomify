@@ -1,17 +1,22 @@
 const express = require('express');
 const mysql = require('mysql2');
+// const mysql = require('mysql2/promise');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { data } = require('react-router');
 const path = require('path');
 const session = require('express-session');
+// const fs = require('fs').promises;
+// const multer = require('multer');
+
 
 
 const app = express();
 const port = 3002;
+// app.use(express.json());
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:3001',
     credentials: true,
     optionsSuccessStatus: 200
 }));
@@ -690,6 +695,66 @@ app.get('/search', async (req, res) => {
         console.error('Ошибка:', error);
         res.status(500).json({ error: 'Ошибка сервера' });
     }
+});
+
+app.post('/authadm', async (req, res) => {
+    const admin = { login: 'admin', password: '123' };
+    const { login, password } = req.body;
+    if (!login || !password) {
+        res.status(500).json({ error: 'Заполните все поля' });
+    }
+    if (login == admin.login || password == admin.password) {
+        req.session.admin = {
+            login, password
+        };
+        res.status(201).json('Успешно!');
+    } else {
+        res.status(500).json({ error: 'Неправильный логин или пароль' });
+    }
+});
+
+app.get('/rooms', async (req, res) => {
+    const baseUrl = "http://localhost:3002"; // Базовый URL сервера
+
+    db.query('SELECT * FROM rooms', (err, rooms) => {
+        if (err) return res.status(500).json({ error: err.message });
+
+        // Получаем все room_id популярных помещений
+        const roomIds = rooms.map(room => room.id);
+
+        // Получаем все изображения для этих помещений
+        db.query(`
+            SELECT 
+                rooms_id,
+                idImages,
+                filename,
+                path
+            FROM 
+                images
+            WHERE 
+                rooms_id IN (?)
+        `, [roomIds], (err, images) => {
+            if (err) return res.status(500).json({ error: err.message });
+
+            // Группируем изображения по room_id и преобразуем пути в абсолютные
+            const imagesByRoom = images.reduce((acc, image) => {
+                acc[image.rooms_id] = acc[image.rooms_id] || [];
+                acc[image.rooms_id].push({
+                    ...image,
+                    absolutePath: `${baseUrl}${image.path}` // Префиксирование пути
+                });
+                return acc;
+            }, {});
+
+            // Добавляем изображения к каждому помещению
+            const roomsWithImages = rooms.map(room => ({
+                ...room,
+                images: imagesByRoom[room.id] || []
+            }));
+
+            res.json(roomsWithImages); // Возвращаем данные с абсолютными путями
+        });
+    });
 });
 
 

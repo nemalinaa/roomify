@@ -23,9 +23,11 @@ const Footer = () => {
 
                     </div>
                 </div>
+
                 <span className='year'>© 2025</span>
+                <Link to='/adminauth' className='admin'>Для админа</Link>
             </div>
-        </div>
+        </div >
 
     )
 }
