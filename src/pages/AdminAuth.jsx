@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router';
-
+import '../pages/components/styles/RegAdmin.css';
 
 const AdminAuth = () => {
     const navigate = useNavigate();
@@ -41,11 +41,11 @@ const AdminAuth = () => {
     }
 
     return (
-        <div className="">
-            <Link to='/'><div className="">На Главную</div></Link>
-            <div className="">
-                <h3 className="">Авторизация админа</h3>
-                <form action="" method='post' onSubmit={HandleSubmit}>
+        <div className="AdminAuthMain">
+            <Link to='/'><div className="linkMain">На Главную</div></Link>
+            <div className="AdminAuthMainForm">
+                <h3 className="AdminAuthMainText">Авторизация админа</h3>
+                <form action="" className="AdminAuthForm" method='post' onSubmit={HandleSubmit}>
                     <input type="text" placeholder="Логин" value={login} onChange={(event) => setLogin(event.target.value)} className="" />
                     <input type="password" placeholder="Пароль" value={password} onChange={(event) => setPassword(event.target.value)} className="" />
                     <button type="submit">Войти</button>

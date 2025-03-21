@@ -1,19 +1,18 @@
 const express = require('express');
 const mysql = require('mysql2');
-// const mysql = require('mysql2/promise');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { data } = require('react-router');
 const path = require('path');
 const session = require('express-session');
-// const fs = require('fs').promises;
-// const multer = require('multer');
+const fs = require('fs').promises;
+const multer = require('multer');
 
 
 
 const app = express();
 const port = 3002;
-// app.use(express.json());
+app.use(express.json());
 
 app.use(cors({
     origin: 'http://localhost:3001',
@@ -40,7 +39,38 @@ app.use(express.urlencoded({ extended: true }));
 // 4. Статические файлы и маршруты
 app.use(express.static(path.join(__dirname, 'images')));
 
+const storage = multer.diskStorage({
+    destination: async (req, file, cb) => {
+        const roomId = req.body.id || 'temp'; // Временная папка до создания товара
+        const uploadDir = path.join(__dirname, 'images', roomId);
 
+        try {
+            await fs.mkdir(uploadDir, { recursive: true });
+            cb(null, uploadDir);
+        } catch (err) {
+            cb(err);
+        }
+    },
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({
+    storage,
+    fileFilter: (req, file, cb) => {
+        const allowedTypes = ['.jpg', '.jpeg', '.png', '.webp'];
+        const ext = path.extname(file.originalname).toLowerCase();
+        if (!allowedTypes.includes(ext)) {
+            return cb(new Error('Допустимы только изображения'));
+        }
+        cb(null, true);
+    },
+    limits: {
+        fileSize: 5 * 1024 * 1024 // 5MB
+    }
+});
 
 const db = mysql.createConnection({
     host: 'localhost',
@@ -61,6 +91,8 @@ db.connect((err) => {
 });
 
 //Для получения инфы по помещениям
+
+
 
 
 

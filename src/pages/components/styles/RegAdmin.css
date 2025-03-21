@@ -1,0 +1,59 @@
+.AdminAuthMain {
+    height: 100vh;
+    width: 1440px;
+}
+
+.linkMain {
+    color: #801525;
+    margin-top: 40px;
+    margin-left: 30px;
+}
+
+.AdminAuthMainForm {
+    margin: auto;
+    width: 400px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.AdminAuthForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+
+.AdminAuthMainText {
+    font-size: 30px;
+    font-weight: 600;
+    padding-top: 40px;
+    padding-bottom: 10px;
+}
+
+.AdminAuthForm button {
+    margin-top: 10px;
+    color: white;
+    background-color: #00554A;
+    border-radius: 30px;
+    height: 62px;
+    font-size: 20px;
+    text-align: left;
+    font-weight: 600;
+    width: 60%;
+    text-align: center;
+    border: none;
+}
+
+.AdminAuthForm input {
+    width: 100%;
+    color: rgba(0, 0, 0, 0.35);
+    border: 2px solid rgba(0, 0, 0, 0.35);
+    border-radius: 30px;
+    height: 62px;
+    font-size: 20px;
+    padding: 0 10px;
+    content: normal;
+    font-weight: 500;
+}
